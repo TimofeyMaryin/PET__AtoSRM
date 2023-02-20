@@ -16,26 +16,69 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Primary80,
+    onPrimary = Primary20,
+    primaryContainer = Primary30,
+    onPrimaryContainer = Primary90,
+
+    secondary = Secondary80,
+    onSecondary = Secondary20,
+    secondaryContainer = Secondary30,
+    onSecondaryContainer = Secondary90,
+
+
+    tertiary = Tertiary80,
+    onTertiary = Tertiary20,
+    tertiaryContainer = Tertiary30,
+    onTertiaryContainer = Tertiary90,
+
+    error = Error80,
+    onError = Error20,
+    errorContainer = Error30,
+    onErrorContainer = Error90,
+
+    background = Neutral10,
+    onBackground = Neutral90,
+    surface = Neutral10,
+    onSurface = Neutral80,
+
+    surfaceVariant = NeutralVariant30,
+    onSurfaceVariant = NeutralVariant80,
+    outline = NeutralVariant60
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = Primary40,
+    onPrimary = White,
+    primaryContainer = Primary90,
+    onPrimaryContainer = Primary10,
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    secondary = Secondary40,
+    onSecondary = White,
+    secondaryContainer = Secondary90,
+    onSecondaryContainer = Secondary10,
+
+
+    tertiary = Tertiary40,
+    onTertiary = White,
+    tertiaryContainer = Tertiary90,
+    onTertiaryContainer = Tertiary10,
+
+    error = Error40,
+    onError = White,
+    errorContainer = Error90,
+    onErrorContainer = Error10,
+
+    background = Neutral90,
+    onBackground = Neutral10,
+    surface = Neutral90,
+    onSurface = Neutral10,
+
+    surfaceVariant = NeutralVariant90,
+    onSurfaceVariant = NeutralVariant30,
+    outline = NeutralVariant50
 )
+
 
 @Composable
 fun AtoSRMTheme(
