@@ -1,4 +1,4 @@
-package com.example.atosrm.ui.theme
+package com.example.atosrm.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
