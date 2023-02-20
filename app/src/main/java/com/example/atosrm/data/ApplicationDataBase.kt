@@ -12,7 +12,7 @@ import com.example.atosrm.data.person_srm.PersonSRMDao
     entities = [
         PersonSRM::class
     ],
-    version = 1
+    version = 5
 )
 abstract class ApplicationDataBase: RoomDatabase() {
 

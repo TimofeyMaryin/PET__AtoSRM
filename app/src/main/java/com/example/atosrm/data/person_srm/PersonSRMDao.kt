@@ -1,10 +1,8 @@
 package com.example.atosrm.data.person_srm
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
+@Dao
 interface PersonSRMDao {
 
     @Query("select * from person")
