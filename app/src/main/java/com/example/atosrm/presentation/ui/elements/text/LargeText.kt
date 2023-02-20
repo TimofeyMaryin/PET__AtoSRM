@@ -22,5 +22,6 @@ import androidx.compose.ui.unit.sp
         fontFamily = notoSans,
         color = color,
         modifier = modifier,
-        fontSize = 16.sp
+        fontSize = 16.sp,
+
     )
