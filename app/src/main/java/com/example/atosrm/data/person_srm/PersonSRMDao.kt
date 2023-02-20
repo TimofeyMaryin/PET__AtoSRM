@@ -1,5 +1,6 @@
 package com.example.atosrm.data.person_srm
 
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -17,5 +18,8 @@ interface PersonSRMDao {
 
     @Query("SELECT * FROM person WHERE id LIKE :id")
     suspend fun getUserById(id: Long): PersonSRM
+
+    @Delete
+    suspend fun deletePerson(person: PersonSRM)
 
 }

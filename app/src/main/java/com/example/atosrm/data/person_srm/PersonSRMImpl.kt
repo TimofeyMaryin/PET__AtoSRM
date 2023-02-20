@@ -8,4 +8,5 @@ class PersonSRMImpl(private val application: Application): PersonSRMRepo {
     override suspend fun searchUser(search: String): MutableList<PersonSRM> = ApplicationDataBase.getInstance(application = application).personSRMDao().searchUser(search = search)
     override suspend fun insertPerson(person: PersonSRM) = ApplicationDataBase.getInstance(application = application).personSRMDao().insertPerson(person = person)
     override suspend fun getUserById(id: Long): PersonSRM = ApplicationDataBase.getInstance(application = application).personSRMDao().getUserById(id = id)
+    override suspend fun deletePerson(person: PersonSRM) = ApplicationDataBase.getInstance(application = application).personSRMDao().deletePerson(person = person)
 }

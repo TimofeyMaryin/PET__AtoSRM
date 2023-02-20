@@ -10,5 +10,6 @@ interface PersonSRMRepo {
     suspend fun searchUser(search: String): MutableList<PersonSRM>
     suspend fun insertPerson(person: PersonSRM)
     suspend fun getUserById(id: Long): PersonSRM
+    suspend fun deletePerson(person: PersonSRM)
 
 }
