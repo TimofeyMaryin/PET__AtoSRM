@@ -20,5 +20,5 @@ import androidx.compose.ui.unit.sp
         modifier = modifier,
         fontWeight = fontWeight,
         color = color,
-        fontSize = 16.sp
+        fontSize = 14.sp
     )
