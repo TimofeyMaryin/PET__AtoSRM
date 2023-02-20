@@ -1,4 +1,4 @@
-package com.example.atosrm.domain.use_cases
+package com.example.atosrm.domain.use_cases.person_srm
 
 import android.app.Application
 import com.example.atosrm.data.person_srm.PersonSRM
