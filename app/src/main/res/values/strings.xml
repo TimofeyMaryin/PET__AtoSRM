@@ -2,7 +2,12 @@
     <string name="app_name">AtoSRM</string>
 
     <string name="list_header_name">List</string>
+    <string name="add_person_header_name">Add person</string>
     <string name="menu_list_name">List</string>
     <string name="menu_search_name">Search</string>
     <string name="menu_profile_name">Profile</string>
+    <string name="element_name_avatar">Avatar</string>
+
+
+    <string name="test_text">Test text</string>
 </resources>
