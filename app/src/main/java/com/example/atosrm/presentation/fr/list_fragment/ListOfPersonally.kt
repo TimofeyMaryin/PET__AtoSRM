@@ -5,9 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,24 +27,37 @@ import com.example.atosrm.presentation.ui.elements.text.SmallText
 import androidx.compose.ui.unit.dp
 
 
-@Composable fun ListOfPersonally(modifier: Modifier) {
-    val person = PersonSRM(
-        fullName = "Maryin Timfey",
-        skills = "IT",
-        shortInfo = listOf("qwert", "qwert1", ":qwert2"),
-        fullInfo = "qwerty"
-    )
+@Composable fun ListOfPersonally(
+    modifier: Modifier,
+    viewModel: ListFragmentViewModel,
+) {
+    var currentUsers = remember { mutableListOf<PersonSRM>() }
+    var isTherePerson by remember { mutableStateOf(false) }
 
     LazyColumn(
-        modifier = Modifier.fillMaxWidth().then(modifier),
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(12){
-            Container {
-                PersonallyItem(person = person)
+        if(isTherePerson) {
+            items(currentUsers){
+                Container {
+                    PersonallyItem(person = it)
+                }
+            }
+        } else {
+            item {
+                Box(modifier = Modifier.fillMaxSize().background(Color.Red))
             }
         }
     }
+
+
+    LaunchedEffect(key1 = Unit, block = {
+        currentUsers = viewModel.getAllList()
+        isTherePerson = viewModel.checkIsTherePerson()
+    })
 
 }
 
@@ -54,7 +68,7 @@ import androidx.compose.ui.unit.dp
         modifier = Modifier
             .clip(MaterialTheme.shapes.medium)
             .background(MaterialTheme.colorScheme.primary)
-            .clickable {  }
+            .clickable { }
             .fillMaxWidth(localWidth.current.extraLarge),
         contentAlignment = Alignment.Center
     ) {
@@ -113,9 +127,3 @@ private fun Container(content: @Composable () -> Unit) {
         .padding(vertical = 2.dp), contentAlignment = Alignment.Center, content = { content() })
 }
 
-@Composable
-@Preview
-private fun PreviewItem() {
-
-    ListOfPersonally(modifier = Modifier)
-}

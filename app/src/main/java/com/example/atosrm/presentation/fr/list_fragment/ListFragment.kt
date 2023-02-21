@@ -17,7 +17,10 @@ import com.example.atosrm.presentation.ui.elements.Header
 import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
 
 
-@Composable fun ListFragment(navController: NavController) {
+@Composable fun ListFragment(
+    navController: NavController,
+    viewModel: ListFragmentViewModel
+) {
     val spacing = localSpacing.current
 
     ConstraintLayout(
@@ -41,7 +44,7 @@ import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
             top.linkTo(topBar.bottom)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
-        })
+        }, viewModel = viewModel)
 
 
 

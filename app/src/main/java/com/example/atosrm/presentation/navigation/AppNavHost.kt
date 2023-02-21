@@ -1,22 +1,26 @@
 package com.example.atosrm.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.atosrm.presentation.fr.list_fragment.ListFragment
+import com.example.atosrm.presentation.fr.list_fragment.ListFragmentViewModel
 import com.example.atosrm.presentation.fr.profile.ProfileFragment
 import com.example.atosrm.presentation.fr.search.SearchFragment
 
 
 @Composable fun AppNavHost(navController: NavHostController) {
+    val listFragmentViewModel: ListFragmentViewModel = hiltViewModel()
+
 
     NavHost(
         navController = navController,
         startDestination = LIST_FRAGMENT
     ) {
-        composable(LIST_FRAGMENT) { ListFragment(navController = navController) }
+        composable(LIST_FRAGMENT) { ListFragment(navController = navController, viewModel = listFragmentViewModel) }
         composable(SETTINGS_FRAGMENT) {}
         composable(SEARCH_FRAGMENT) { SearchFragment() }
         composable(ADD_PERSON_FRAGMENT) {}
