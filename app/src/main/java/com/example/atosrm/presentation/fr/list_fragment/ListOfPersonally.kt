@@ -1,5 +1,6 @@
 package com.example.atosrm.presentation.fr.list_fragment
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,31 +33,28 @@ import androidx.compose.ui.unit.dp
     viewModel: ListFragmentViewModel,
 ) {
     var currentUsers = remember { mutableListOf<PersonSRM>() }
-    var isTherePerson by remember { mutableStateOf(false) }
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxWidth()
-            .then(modifier),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        if(isTherePerson) {
-            items(currentUsers){
+    if (currentUsers.size != 0){
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .then(modifier),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            items(currentUsers) {
                 Container {
                     PersonallyItem(person = it)
                 }
             }
-        } else {
-            item {
-                Box(modifier = Modifier.fillMaxSize().background(Color.Red))
-            }
-        }
-    }
 
+        }
+    } else {
+        Box(modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 90.dp).background(Color.Red))
+    }
 
     LaunchedEffect(key1 = Unit, block = {
         currentUsers = viewModel.getAllList()
-        isTherePerson = viewModel.checkIsTherePerson()
+        Log.e("ListOfPersonally", "${currentUsers.size}", )
     })
 
 }
