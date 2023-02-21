@@ -1,8 +1,11 @@
 package com.example.atosrm.presentation.ui.elements.bottom_bar
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,6 +17,7 @@ import com.example.atosrm.R
 import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
 import com.example.atosrm.presentation.navigation.PROFILE_FRAGMENT
 import com.example.atosrm.presentation.navigation.SEARCH_FRAGMENT
+import com.example.atosrm.presentation.ui.dimenston.localSpacing
 
 
 @Composable fun BottomBar(
@@ -21,10 +25,11 @@ import com.example.atosrm.presentation.navigation.SEARCH_FRAGMENT
     modifier: Modifier,
 ) {
     val currentRoute by remember { mutableStateOf( navController.currentDestination?.route) }
+    val spacing = localSpacing.current
 
 
     Row(
-        modifier = Modifier.fillMaxWidth().then(modifier),
+        modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.onSecondary).then(modifier).padding(vertical = spacing.small),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceAround
     ) {

@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable fun FAB(
+    modifier: Modifier,
     icon: Int,
     onAction: () -> Unit,
 ) {
@@ -23,7 +24,8 @@ import androidx.compose.ui.unit.dp
             .clip(MaterialTheme.shapes.medium)
             .size(60.dp)
             .background(MaterialTheme.colorScheme.secondary)
-            .clickable { onAction() },
+            .clickable { onAction() }
+            .then(modifier),
         contentAlignment = Alignment.Center
     ) {
         Icon(

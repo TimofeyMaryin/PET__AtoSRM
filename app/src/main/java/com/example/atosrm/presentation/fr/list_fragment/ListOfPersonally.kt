@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
     )
 
     LazyColumn(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(12){

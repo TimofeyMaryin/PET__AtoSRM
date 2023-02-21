@@ -2,6 +2,7 @@ package com.example.atosrm.presentation.fr.list_fragment
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -10,11 +11,15 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.atosrm.R
 import com.example.atosrm.data.state.PositionIconHeader
+import com.example.atosrm.presentation.ui.dimenston.localSpacing
+import com.example.atosrm.presentation.ui.elements.FAB
 import com.example.atosrm.presentation.ui.elements.Header
 import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
 
 
 @Composable fun ListFragment(navController: NavController) {
+    val spacing = localSpacing.current
+
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -25,7 +30,7 @@ import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
 
         Header(
             title = R.string.list_header_name,
-            modifier = Modifier.constrainAs(topBar) { top.linkTo(parent.top) },
+            modifier = Modifier.constrainAs(topBar) { top.linkTo(parent.top) }.padding(vertical = spacing.small),
             icon = R.drawable.setting_ic,
             position = PositionIconHeader.END
         ) {
@@ -43,5 +48,15 @@ import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         })
+
+        FAB(
+            icon = R.drawable.edit_ic,
+            modifier = Modifier.constrainAs(fab) {
+                bottom.linkTo(bottomBar.top, margin = spacing.large)
+                end.linkTo(parent.end, margin = spacing.large)
+            },
+        ) {
+            // TODO("Impl this feat")
+        }
     }
 }

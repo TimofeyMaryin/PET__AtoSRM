@@ -1,5 +1,6 @@
 package com.example.atosrm.presentation.ui.elements
 
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -7,8 +8,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.example.atosrm.R
 import com.example.atosrm.data.state.PositionIconHeader
 import com.example.atosrm.presentation.ui.dimenston.localWidth
 import com.example.atosrm.presentation.ui.elements.text.LargeText
@@ -38,7 +43,8 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
                 end.linkTo(parent.end)
                 start.linkTo(parent.start)
             },
-            color = MaterialTheme.colorScheme.surfaceVariant
+            color = MaterialTheme.colorScheme.onBackground,
+            fontWeight = FontWeight.Bold
         )
         IconButton(
             onClick = { onAction() },
@@ -62,7 +68,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
                 Icon(
                     painter = painterResource(id = icon),
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.surfaceVariant
+                    tint = MaterialTheme.colorScheme.onBackground
                 )
             }
         }
@@ -70,6 +76,19 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 
     }
 
+}
+
+@Composable
+@Preview(widthDp = 230)
+fun PreviewHeader() {
+    Header(
+        title = R.string.menu_list_name,
+        modifier = Modifier,
+        icon = R.drawable.setting_ic,
+        position = PositionIconHeader.END
+    ) {
+
+    }
 }
 
 

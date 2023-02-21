@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.atosrm.presentation.fr.list_fragment.ListFragment
 
 
 @Composable fun AppNavHost(navController: NavHostController) {
@@ -13,7 +14,7 @@ import androidx.navigation.compose.composable
         navController = navController,
         startDestination = LIST_FRAGMENT
     ) {
-        composable(LIST_FRAGMENT) {}
+        composable(LIST_FRAGMENT) { ListFragment(navController = navController) }
         composable(SETTINGS_FRAGMENT) {}
         composable(SEARCH_FRAGMENT) {}
         composable(ADD_PERSON_FRAGMENT) {}
