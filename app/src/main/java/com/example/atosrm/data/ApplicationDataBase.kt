@@ -1,19 +1,19 @@
 package com.example.atosrm.data
 
 import android.app.Application
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import com.example.atosrm.data.person_srm.PersonSRM
 import com.example.atosrm.data.person_srm.PersonSRMDao
+import com.example.atosrm.data.person_srm.ShortInfoConverters
 
 
 @Database(
     entities = [
         PersonSRM::class
     ],
-    version = 5
+    version = 6
 )
+@TypeConverters(ShortInfoConverters::class)
 abstract class ApplicationDataBase: RoomDatabase() {
 
     abstract fun personSRMDao(): PersonSRMDao

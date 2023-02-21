@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
     val person = PersonSRM(
         fullName = "Maryin Timfey",
         skills = "IT",
-        shortInfo = "24.03 , Tall , Smart",
+        shortInfo = listOf("qwert", "qwert1", ":qwert2"),
         fullInfo = "qwerty"
     )
 
@@ -87,7 +87,7 @@ import androidx.compose.ui.unit.dp
                 start.linkTo(icon.end, margin = spacing.small)
             })
 
-            SmallText(value = person.shortInfo, modifier = Modifier.constrainAs(shortInfo) {
+            SmallText(value = person.shortInfo[0], modifier = Modifier.constrainAs(shortInfo) {
                 top.linkTo(skills.bottom)
                 start.linkTo(icon.end, margin = spacing.small)
             })
