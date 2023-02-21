@@ -5,12 +5,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.atosrm.R
+import com.example.atosrm.presentation.navigation.ADD_PERSON_FRAGMENT
 import com.example.atosrm.presentation.navigation.AppNavHost
+import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
 import com.example.atosrm.presentation.ui.elements.FAB
 import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
 import com.example.atosrm.presentation.ui.theme.AtoSRMTheme
@@ -29,21 +33,33 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable private fun contents() {
+    val mainActivityViewModel: MainActivityViewModel = viewModel()
     val navController = rememberNavController()
+
     AtoSRMTheme {
 
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {},
             floatingActionButton = {
-                FAB(
-                    icon = R.drawable.edit_ic,
-                    modifier = Modifier,
-                ) {
-                    // TODO("Impl this feat")
+                if (mainActivityViewModel.currentNavBackState == LIST_FRAGMENT || mainActivityViewModel.currentNavBackState == ADD_PERSON_FRAGMENT) {
+
+                    FAB(
+                        icon = R.drawable.edit_ic,
+                        modifier = Modifier,
+                    ) {
+                        navController.navigate(ADD_PERSON_FRAGMENT)
+                        mainActivityViewModel.isOpenNonMainMenuEl = true
+                        mainActivityViewModel.currentNavBackState = ADD_PERSON_FRAGMENT
+
+                    }
                 }
             },
-            bottomBar = { BottomBar(navController = navController, modifier = Modifier) },
+            bottomBar = { BottomBar(
+                navController = navController,
+                modifier = Modifier,
+                viewModel = mainActivityViewModel
+            ) },
             content = { it -> AppNavHost(navController = navController) }
         )
 
