@@ -43,20 +43,7 @@ import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
             end.linkTo(parent.end)
         })
 
-        BottomBar(navController = navController, modifier = Modifier.constrainAs(bottomBar){
-            bottom.linkTo(parent.bottom)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-        })
 
-        FAB(
-            icon = R.drawable.edit_ic,
-            modifier = Modifier.constrainAs(fab) {
-                bottom.linkTo(bottomBar.top, margin = spacing.large)
-                end.linkTo(parent.end, margin = spacing.large)
-            },
-        ) {
-            // TODO("Impl this feat")
-        }
+
     }
 }

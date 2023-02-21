@@ -60,7 +60,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
         
         LargeText(value = R.string.element_name_avatar)
 
-        
+
         Container { AppTextField(placeHolder = R.string.test_text, desc = R.string.test_text, value = "", onChangeValue = {}) }
         Container { AppTextField(placeHolder = R.string.test_text, desc = R.string.test_text, value = "", onChangeValue = {}) }
         Container { AppTextField(placeHolder = R.string.test_text, desc = R.string.test_text, value = "", onChangeValue = {}) }
