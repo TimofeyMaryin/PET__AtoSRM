@@ -35,6 +35,9 @@ class MainActivity : ComponentActivity() {
 @Composable private fun contents() {
     val mainActivityViewModel: MainActivityViewModel = viewModel()
     val navController = rememberNavController()
+    var currentFABIcon by remember {
+        mutableStateOf(R.drawable.edit_ic)
+    }
 
     AtoSRMTheme {
 
@@ -45,7 +48,7 @@ class MainActivity : ComponentActivity() {
                 if (mainActivityViewModel.currentNavBackState == LIST_FRAGMENT || mainActivityViewModel.currentNavBackState == ADD_PERSON_FRAGMENT) {
 
                     FAB(
-                        icon = R.drawable.edit_ic,
+                        icon = if(mainActivityViewModel.isOpenNonMainMenuEl ) R.drawable.save_as_ic else R.drawable.edit_ic,
                         modifier = Modifier,
                     ) {
                         navController.navigate(ADD_PERSON_FRAGMENT)
@@ -61,6 +64,17 @@ class MainActivity : ComponentActivity() {
                 viewModel = mainActivityViewModel
             ) },
             content = { it -> AppNavHost(navController = navController) }
+        )
+
+
+        LaunchedEffect(
+            key1 = mainActivityViewModel.currentNavBackState,
+            block = {
+                    currentFABIcon = when(mainActivityViewModel.currentNavBackState){
+                        ADD_PERSON_FRAGMENT -> R.drawable.save_as_ic
+                        else -> R.drawable.edit_ic
+                    }
+            },
         )
 
     }
