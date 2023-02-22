@@ -1,5 +1,6 @@
 package com.example.atosrm.presentation.ui.elements.bottom_bar
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -28,7 +29,11 @@ import com.example.atosrm.presentation.ui.dimenston.localSpacing
 
 
     Row(
-        modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.onSecondary).then(modifier).padding(vertical = spacing.small),
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.onSecondary)
+            .then(modifier)
+            .padding(vertical = spacing.small),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceAround
     ) {

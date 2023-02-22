@@ -1,5 +1,7 @@
 package com.example.atosrm.presentation.ui.elements.bottom_bar
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -25,6 +27,16 @@ import androidx.compose.ui.unit.dp
     nameOfPage: Int,
     onAction: () -> Unit
 ) {
+
+    val bgColor = animateColorAsState(
+        targetValue = if(isActive) MaterialTheme.colorScheme.primary else Color.Transparent,
+        tween(500)
+    )
+    val tintColor = animateColorAsState(
+        targetValue = if (isActive) MaterialTheme.colorScheme.onTertiary else MaterialTheme.colorScheme.onBackground,
+        tween(500)
+    )
+
      Column(
          horizontalAlignment = Alignment.CenterHorizontally,
          modifier = Modifier.clickable { onAction() }
@@ -33,13 +45,13 @@ import androidx.compose.ui.unit.dp
              modifier = Modifier
                  .clip(MaterialTheme.shapes.medium)
                  .defaultMinSize(minWidth = 50.dp)
-                 .background(if (isActive) MaterialTheme.colorScheme.primary else Color.Transparent),
+                 .background(bgColor.value),
              contentAlignment = Alignment.Center
          ) {
              Icon(
                  painter = painterResource(id = icon),
                  contentDescription = null,
-                 tint = if (isActive) MaterialTheme.colorScheme.onTertiary else MaterialTheme.colorScheme.onBackground,
+                 tint = tintColor.value,
                  modifier = Modifier.size(32.dp)
              )
          }
