@@ -2,6 +2,7 @@ package com.example.atosrm.presentation.ui.elements
 
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -15,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.atosrm.R
 import com.example.atosrm.data.state.PositionIconHeader
+import com.example.atosrm.presentation.ui.dimenston.localSpacing
 import com.example.atosrm.presentation.ui.dimenston.localWidth
 import com.example.atosrm.presentation.ui.elements.text.LargeText
 
@@ -31,6 +33,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth(currentWidth.large)
+            .padding(vertical = localSpacing.current.small)
             .then(modifier)
     ) {
         val (iconRefs, titleRefs) = createRefs()

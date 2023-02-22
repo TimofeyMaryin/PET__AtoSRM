@@ -1,6 +1,7 @@
 package com.example.atosrm.presentation.ui.elements
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -27,7 +28,6 @@ import androidx.compose.ui.unit.sp
     desc: Int,
     value: String,
     onChangeValue: (String) -> Unit,
-    maxValue: Int = Int.MAX_VALUE,
     maxLines: Int = Int.MAX_VALUE,
 ) {
     var isActive by remember { mutableStateOf(false) }
@@ -42,19 +42,19 @@ import androidx.compose.ui.unit.sp
             },
             maxLines = maxLines,
             placeholder = {
-                LargeText(value = placeHolder, color = MaterialTheme.colorScheme.background.copy(.4f))
+                LargeText(value = placeHolder, color = MaterialTheme.colorScheme.onBackground.copy(.4f))
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colorScheme.background,
-                unfocusedBorderColor = MaterialTheme.colorScheme.background.copy(.4f)
+                focusedBorderColor = MaterialTheme.colorScheme.onBackground,
+                unfocusedBorderColor = MaterialTheme.colorScheme.onBackground.copy(.4f)
             ),
-            textStyle = TextStyle.Default.copy(fontSize = 18.sp, color = MaterialTheme.colorScheme.background),
+            textStyle = TextStyle.Default.copy(fontSize = 18.sp, color = MaterialTheme.colorScheme.onBackground),
             modifier = Modifier.fillMaxWidth()
         )
 
         SmallText(
             value = desc,
-            color = MaterialTheme.colorScheme.background.copy(if(isActive) 1.0f else 0.4f),
+            color = MaterialTheme.colorScheme.onBackground.copy(if(isActive) 1.0f else 0.4f),
             modifier = Modifier.padding(start = localSpacing.current.large)
         )
     }
@@ -76,6 +76,4 @@ import androidx.compose.ui.unit.sp
             onChangeValue = { value = it }
         )
     }
-
-
 }

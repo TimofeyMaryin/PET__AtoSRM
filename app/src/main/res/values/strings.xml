@@ -12,4 +12,19 @@
     <string name="test_text">Test text</string>
 
     <string name="empty_list">Empty List</string>
+    <string name="header_title_add_person">Add Person</string>
+    <string name="avatar">Avatar</string>
+
+
+    <string name="place_holder_name">Person Name Placeholder</string>
+    <string name="description_name">Enter full name</string>
+
+    <string name="place_holder_skills">Skills</string>
+    <string name="description_skills">Write what the person does</string>
+
+    <string name="place_holder_about_person">About person</string>
+    <string name="description_about_person">Here you can write a long message describe this person</string>
+
+    <string name="place_holder_short_info">Short info (8 letters)</string>
+    <string name="description_short_info">write a summary</string>
 </resources>
