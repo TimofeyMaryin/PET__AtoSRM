@@ -14,18 +14,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.atosrm.R
 import com.example.atosrm.data.person_srm.PersonSRM
-import com.example.atosrm.presentation.ui.dimenston.LocalSpacing
 import com.example.atosrm.presentation.ui.dimenston.localSpacing
 import com.example.atosrm.presentation.ui.dimenston.localWidth
 import com.example.atosrm.presentation.ui.elements.text.DefaultText
 import com.example.atosrm.presentation.ui.elements.text.LargeText
 import com.example.atosrm.presentation.ui.elements.text.SmallText
 import androidx.compose.ui.unit.dp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 
 
 @Composable fun ListOfPersonally(
@@ -65,7 +69,22 @@ import androidx.compose.ui.unit.dp
     }
 }
 @Composable private fun ThereIsNotPerson(){
+    val localWidth = LocalConfiguration.current.screenWidthDp
+    val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.empty_list))
+    val progress by animateLottieCompositionAsState(
+        composition = composition,
+        iterations = Int.MAX_VALUE
+    )
 
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+        LottieAnimation(
+            composition = composition,
+            progress = progress,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.height(localWidth.dp)
+        )
+
+    }
 }
 @Composable private fun PersonallyItem(person: PersonSRM) {
     val spacing = localSpacing.current

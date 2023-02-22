@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.sp
     value: Int,
     modifier: Modifier = Modifier,
     fontWeight: FontWeight = FontWeight.Normal,
-    color: Color = MaterialTheme.colorScheme.background,
+    color: Color = MaterialTheme.colorScheme.onBackground,
 ) =
     Text(
         text = stringResource(id = value),
