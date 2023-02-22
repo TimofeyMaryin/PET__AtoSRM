@@ -1,4 +1,4 @@
-package com.example.atosrm.presentation.ui.elements
+package com.example.atosrm.presentation.ui.elements.fab
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,7 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
 
-@Composable fun FAB(
+@Composable fun _FAB_content(
     modifier: Modifier,
     icon: Int,
     onAction: () -> Unit,

@@ -12,7 +12,6 @@ import androidx.navigation.NavController
 import com.example.atosrm.R
 import com.example.atosrm.data.state.PositionIconHeader
 import com.example.atosrm.presentation.ui.dimenston.localSpacing
-import com.example.atosrm.presentation.ui.elements.FAB
 import com.example.atosrm.presentation.ui.elements.Header
 import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
 
@@ -28,7 +27,7 @@ import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        val (topBar,content, fab, bottomBar) = createRefs()
+        val (topBar,content) = createRefs()
 
 
         Header(

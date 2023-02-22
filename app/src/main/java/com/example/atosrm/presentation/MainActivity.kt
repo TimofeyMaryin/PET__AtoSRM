@@ -3,20 +3,18 @@ package com.example.atosrm.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.*
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.atosrm.R
 import com.example.atosrm.presentation.navigation.ADD_PERSON_FRAGMENT
 import com.example.atosrm.presentation.navigation.AppNavHost
-import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
-import com.example.atosrm.presentation.ui.elements.FAB
 import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
+import com.example.atosrm.presentation.ui.elements.fab.FAB
 import com.example.atosrm.presentation.ui.theme.AtoSRMTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,18 +43,7 @@ class MainActivity : ComponentActivity() {
             modifier = Modifier.fillMaxSize(),
             topBar = {},
             floatingActionButton = {
-                if (mainActivityViewModel.currentNavBackState == LIST_FRAGMENT || mainActivityViewModel.currentNavBackState == ADD_PERSON_FRAGMENT) {
-
-                    FAB(
-                        icon = if(mainActivityViewModel.isOpenNonMainMenuEl ) R.drawable.save_as_ic else R.drawable.edit_ic,
-                        modifier = Modifier,
-                    ) {
-                        navController.navigate(ADD_PERSON_FRAGMENT)
-                        mainActivityViewModel.isOpenNonMainMenuEl = true
-                        mainActivityViewModel.currentNavBackState = ADD_PERSON_FRAGMENT
-
-                    }
-                }
+                FAB(mainActivityViewModel = mainActivityViewModel, navController = navController)
             },
             bottomBar = { BottomBar(
                 navController = navController,
