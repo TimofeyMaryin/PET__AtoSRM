@@ -35,21 +35,9 @@ import androidx.compose.ui.unit.dp
     var currentUsers = remember { mutableListOf<PersonSRM>() }
 
     if (currentUsers.size != 0){
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .then(modifier),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            items(currentUsers) {
-                Container {
-                    PersonallyItem(person = it)
-                }
-            }
-
-        }
+        ThereIsPerson(modifier = modifier, value = currentUsers)
     } else {
-        Box(modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 90.dp).background(Color.Red))
+        ThereIsNotPerson()
     }
 
     LaunchedEffect(key1 = Unit, block = {
@@ -59,7 +47,26 @@ import androidx.compose.ui.unit.dp
 
 }
 
+@Composable private fun ThereIsPerson(
+    modifier: Modifier,
+    value: MutableList<PersonSRM>
+){
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(modifier),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        items(value) {
+            Container {
+                PersonallyItem(person = it)
+            }
+        }
+    }
+}
+@Composable private fun ThereIsNotPerson(){
 
+}
 @Composable private fun PersonallyItem(person: PersonSRM) {
     val spacing = localSpacing.current
     Box(
@@ -117,6 +124,7 @@ import androidx.compose.ui.unit.dp
         }
     }
 }
+
 
 @Composable
 private fun Container(content: @Composable () -> Unit) {
