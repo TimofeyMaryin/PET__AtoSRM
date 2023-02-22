@@ -63,7 +63,7 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier,
                 viewModel = mainActivityViewModel
             ) },
-            content = { it -> AppNavHost(navController = navController) }
+            content = { it -> AppNavHost(navController = navController, mainActivityViewModel = mainActivityViewModel) }
         )
 
 

@@ -16,6 +16,8 @@ import androidx.navigation.NavController
 import com.example.atosrm.R
 import androidx.compose.ui.unit.dp
 import com.example.atosrm.data.state.PositionIconHeader
+import com.example.atosrm.presentation.MainActivityViewModel
+import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
 import com.example.atosrm.presentation.ui.dimenston.localSpacing
 import com.example.atosrm.presentation.ui.dimenston.localWidth
 import com.example.atosrm.presentation.ui.elements.AppTextField
@@ -25,7 +27,8 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 
 @Composable fun AddPersonFragment(
     navController: NavController,
-    viewModel: AddPersonViewModel
+    viewModel: AddPersonViewModel,
+    mainViewModel: MainActivityViewModel
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxHeight(),
@@ -38,7 +41,9 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
                 icon = R.drawable.arrow_back_ic,
                 position = PositionIconHeader.START,
             ) {
-                    navController.popBackStack()
+                navController.popBackStack()
+                mainViewModel.currentNavBackState = LIST_FRAGMENT
+                mainViewModel.isOpenNonMainMenuEl = false
             }
         }
 
