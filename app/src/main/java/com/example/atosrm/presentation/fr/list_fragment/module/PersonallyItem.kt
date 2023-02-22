@@ -1,22 +1,20 @@
 package com.example.atosrm.presentation.fr.list_fragment
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.atosrm.R
 import com.example.atosrm.data.person_srm.PersonSRM
@@ -25,68 +23,8 @@ import com.example.atosrm.presentation.ui.dimenston.localWidth
 import com.example.atosrm.presentation.ui.elements.text.DefaultText
 import com.example.atosrm.presentation.ui.elements.text.LargeText
 import com.example.atosrm.presentation.ui.elements.text.SmallText
-import androidx.compose.ui.unit.dp
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
 
-
-@Composable fun ListOfPersonally(
-    modifier: Modifier,
-    viewModel: ListFragmentViewModel,
-) {
-    var currentUsers = remember { mutableListOf<PersonSRM>() }
-
-    if (currentUsers.size != 0){
-        ThereIsPerson(modifier = modifier, value = currentUsers)
-    } else {
-        ThereIsNotPerson()
-    }
-
-    LaunchedEffect(key1 = Unit, block = {
-        currentUsers = viewModel.getAllList()
-        Log.e("ListOfPersonally", "${currentUsers.size}", )
-    })
-
-}
-
-@Composable private fun ThereIsPerson(
-    modifier: Modifier,
-    value: MutableList<PersonSRM>
-){
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxWidth()
-            .then(modifier),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        items(value) {
-            Container {
-                PersonallyItem(person = it)
-            }
-        }
-    }
-}
-@Composable private fun ThereIsNotPerson(){
-    val localWidth = LocalConfiguration.current.screenWidthDp
-    val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.empty_list))
-    val progress by animateLottieCompositionAsState(
-        composition = composition,
-        iterations = Int.MAX_VALUE
-    )
-
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
-        LottieAnimation(
-            composition = composition,
-            progress = progress,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.height(localWidth.dp)
-        )
-
-    }
-}
-@Composable private fun PersonallyItem(person: PersonSRM) {
+@Composable fun PersonallyItem(person: PersonSRM) {
     val spacing = localSpacing.current
     Box(
         modifier = Modifier
@@ -143,12 +81,3 @@ import com.airbnb.lottie.compose.rememberLottieComposition
         }
     }
 }
-
-
-@Composable
-private fun Container(content: @Composable () -> Unit) {
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .padding(vertical = 2.dp), contentAlignment = Alignment.Center, content = { content() })
-}
-
