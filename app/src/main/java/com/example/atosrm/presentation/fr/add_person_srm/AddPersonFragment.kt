@@ -1,5 +1,6 @@
 package com.example.atosrm.presentation.fr.add_person_srm
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -28,6 +29,7 @@ import com.example.atosrm.presentation.ui.elements.Header
 import com.example.atosrm.presentation.ui.elements.text.LargeText
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable fun AddPersonFragment(
     navController: NavController,
     viewModel: AddPersonViewModel,
@@ -37,10 +39,12 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
         modifier = Modifier.fillMaxHeight(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        item {
+        stickyHeader {
             Header(
                 title = R.string.header_title_add_person,
-                modifier = Modifier,
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .defaultMinSize(minHeight = 80.dp),
                 icon = R.drawable.arrow_back_ic,
                 position = PositionIconHeader.START,
             ) {
@@ -106,25 +110,34 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
             AddPersonShortInfoContainer(viewModel = viewModel)
         }
         
-        
+
         item {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End
             ) {
-                AppButton(value = "Add tags") {
-                    
+
+                Box(modifier = Modifier.padding(horizontal = localSpacing.current.medium), contentAlignment = Alignment.Center) {
+                    AppButton(value = "Add tags") {
+                        if(viewModel.shortInfo.isNotEmpty()) viewModel.addInfoToList()
+                    }
                 }
-                
-                AppButton(value = "ADd person") {
-                    
+
+                Box(modifier = Modifier.padding(horizontal = localSpacing.current.medium), contentAlignment = Alignment.Center){
+                    AppButton(value = "ADd person") {
+
+                    }
                 }
+
+
             }
         }
 
         item {
-            Box(modifier = Modifier.fillMaxWidth().height(200.dp))
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp))
         }
     }
 }

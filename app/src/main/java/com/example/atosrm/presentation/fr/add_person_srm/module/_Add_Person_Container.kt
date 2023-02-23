@@ -9,10 +9,17 @@ import androidx.compose.ui.Modifier
 import com.example.atosrm.presentation.ui.dimenston.localSpacing
 import com.example.atosrm.presentation.ui.dimenston.localWidth
 
-@Composable fun _Add_Person_Container(content: @Composable () -> Unit) {
-    Box(modifier = Modifier
-        .fillMaxWidth(localWidth.current.large)
-        .padding(vertical = localSpacing.current.small), contentAlignment = Alignment.Center) {
+@Composable fun _Add_Person_Container(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth(localWidth.current.large)
+            .padding(vertical = localSpacing.current.small)
+            .then(modifier),
+        contentAlignment = Alignment.Center
+    ) {
         content()
     }
 }

@@ -18,6 +18,8 @@ class AddPersonViewModel @Inject constructor(): ViewModel(){
     var personInfo by mutableStateOf("")
     var shortInfo by mutableStateOf("")
 
+    var shortInfoMutableList = mutableListOf<String>()
+
 
     val textFieldInfo = mutableListOf(
         TextFieldModel(personName, R.string.place_holder_name, R.string.description_name) { personName += it; Log.e("AddPersonViewModel", "PersonName: $personName") },
@@ -26,20 +28,13 @@ class AddPersonViewModel @Inject constructor(): ViewModel(){
         TextFieldModel(shortInfo, R.string.place_holder_short_info, R.string.description_short_info) { shortInfo = it }
     )
 
-    fun shortInfoToList(): List<String> {
-        val words = shortInfo.split(",")
-        return words.map {  it.trim() }
+    fun addInfoToList() {
+        shortInfoMutableList.add(shortInfo)
+        shortInfo = ""
     }
 
-    fun deleteShortInfoItem(index: Int) {
-        Log.e("deleteShortInfoItem", "before deleting: $shortInfo", )
+    fun deleteShortInfoItem(index: Int) = shortInfoMutableList.removeAt(index)
 
-        shortInfo = shortInfo.removeSurrounding(
-            shortInfoToList()[index]
-        )
-
-        Log.e("deleteShortInfoItem", "after deleting: $shortInfo", )
-    }
 }
 
 
