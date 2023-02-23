@@ -17,9 +17,12 @@ import com.example.atosrm.R
 import androidx.compose.ui.unit.dp
 import com.example.atosrm.data.state.PositionIconHeader
 import com.example.atosrm.presentation.MainActivityViewModel
+import com.example.atosrm.presentation.fr.add_person_srm.module.AddPersonShortInfoContainer
+import com.example.atosrm.presentation.fr.add_person_srm.module._Add_Person_Container
 import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
 import com.example.atosrm.presentation.ui.dimenston.localSpacing
 import com.example.atosrm.presentation.ui.dimenston.localWidth
+import com.example.atosrm.presentation.ui.elements.AppButton
 import com.example.atosrm.presentation.ui.elements.AppTextField
 import com.example.atosrm.presentation.ui.elements.Header
 import com.example.atosrm.presentation.ui.elements.text.LargeText
@@ -66,13 +69,8 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
             }
         }
 
-//        items(viewModel.textFieldInfo) {
-//            Container {
-//                AppTextField(placeHolder = it.placeHolder, desc = it.descriptor, value = it.value, onChangeValue = { value -> it.value = value })
-//            }
-//        }
         item {
-            Container {
+            _Add_Person_Container {
                 AppTextField(
                     placeHolder = viewModel.textFieldInfo[0].placeHolder,
                     desc = viewModel.textFieldInfo[0].descriptor,
@@ -82,7 +80,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
                     maxLines = 1
                 )
             }
-            Container {
+            _Add_Person_Container {
                 AppTextField(
                     placeHolder = viewModel.textFieldInfo[1].placeHolder,
                     desc = viewModel.textFieldInfo[1].descriptor,
@@ -92,7 +90,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
                     maxLines = 1
                 )
             }
-            Container {
+            _Add_Person_Container {
                 AppTextField(
                     placeHolder = viewModel.textFieldInfo[2].placeHolder,
                     desc = viewModel.textFieldInfo[2].descriptor,
@@ -103,14 +101,36 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
             }
 
         }
+
+        item {
+            AddPersonShortInfoContainer(viewModel = viewModel)
+        }
+        
+        
+        item {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.End
+            ) {
+                AppButton(value = "Add tags") {
+                    
+                }
+                
+                AppButton(value = "ADd person") {
+                    
+                }
+            }
+        }
+
+        item {
+            Box(modifier = Modifier.fillMaxWidth().height(200.dp))
+        }
     }
 }
 
-@Composable private fun Container(content: @Composable () -> Unit) {
-    Box(modifier = Modifier
-        .fillMaxWidth(localWidth.current.large)
-        .padding(vertical = localSpacing.current.small), contentAlignment = Alignment.Center) {
-        content()
-    }
-}
+
+
+
+
 

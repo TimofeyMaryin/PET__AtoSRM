@@ -25,6 +25,21 @@ class AddPersonViewModel @Inject constructor(): ViewModel(){
         TextFieldModel(personInfo, R.string.place_holder_about_person, R.string.description_about_person) { personInfo = it },
         TextFieldModel(shortInfo, R.string.place_holder_short_info, R.string.description_short_info) { shortInfo = it }
     )
+
+    fun shortInfoToList(): List<String> {
+        val words = shortInfo.split(",")
+        return words.map {  it.trim() }
+    }
+
+    fun deleteShortInfoItem(index: Int) {
+        Log.e("deleteShortInfoItem", "before deleting: $shortInfo", )
+
+        shortInfo = shortInfo.removeSurrounding(
+            shortInfoToList()[index]
+        )
+
+        Log.e("deleteShortInfoItem", "after deleting: $shortInfo", )
+    }
 }
 
 

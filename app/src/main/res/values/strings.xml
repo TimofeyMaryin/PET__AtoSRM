@@ -27,4 +27,7 @@
 
     <string name="place_holder_short_info">Short info (8 letters)</string>
     <string name="description_short_info">write a summary</string>
+
+    <string name="limit_short_info">Limit 4</string>
+
 </resources>
