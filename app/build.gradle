@@ -102,6 +102,9 @@ dependencies {
     // coil
     implementation "io.coil-kt:coil-compose:2.2.2"
 
+    implementation "androidx.compose.foundation:foundation:1.0.4"
+
+
 }
 
 kapt {

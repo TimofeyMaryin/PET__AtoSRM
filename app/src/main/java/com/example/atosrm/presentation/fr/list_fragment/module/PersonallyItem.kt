@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.core.net.toUri
 import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import com.airbnb.lottie.model.content.CircleShape
 import com.example.atosrm.R
@@ -37,7 +39,6 @@ import com.example.atosrm.presentation.ui.elements.text.SmallText
 
 @Composable fun PersonallyItem(person: PersonSRM) {
     val spacing = localSpacing.current
-    val currentUri = Uri.parse(person.avatar)
     Log.e("PersonallyItem", "person avatar: ${person.avatar}", )
     Box(
         modifier = Modifier
@@ -53,12 +54,7 @@ import com.example.atosrm.presentation.ui.elements.text.SmallText
             val (icon, personName, skills, shortInfo, exitButton) = createRefs()
 
             Image(
-                painter = rememberAsyncImagePainter(
-                    ImageRequest
-                        .Builder(LocalContext.current)
-                        .data(data = "content://com.android.providers.media.documents/document/image%3A70")
-                        .build()
-                ),
+                painter = rememberAsyncImagePainter(Uri.parse(person.avatar)),
                 contentDescription = null,
                 modifier = Modifier
                     .constrainAs(icon) {
