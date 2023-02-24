@@ -1,8 +1,15 @@
 package com.example.atosrm.presentation.fr.add_person_srm
 
+import android.content.ContentProvider
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
+import android.provider.MediaStore.Images.Thumbnails.getThumbnail
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -21,6 +28,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.example.atosrm.R
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContentProviderCompat.requireContext
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.atosrm.data.state.PositionIconHeader
@@ -35,19 +43,21 @@ import com.example.atosrm.presentation.ui.elements.Header
 import com.example.atosrm.presentation.ui.elements.text.LargeText
 
 
+@RequiresApi(Build.VERSION_CODES.P)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable fun AddPersonFragment(
     navController: NavController,
     viewModel: AddPersonViewModel,
     mainViewModel: MainActivityViewModel
 ) {
-
+    val context = LocalContext.current
     var selectImage by remember { mutableStateOf<Uri?>(null) }
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent(),
         onResult = { uri ->
             selectImage = uri
-            viewModel.personAvatar = uri.toString()
+            viewModel.personAvatar = viewModel.getBitmapFromUri(context = context, uri = uri!!)
+
         }
     )
 
@@ -95,6 +105,8 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 
                 }
                 LargeText(value = R.string.avatar)
+
+
             }
         }
 

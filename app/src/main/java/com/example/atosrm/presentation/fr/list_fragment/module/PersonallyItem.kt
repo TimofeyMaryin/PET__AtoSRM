@@ -1,15 +1,14 @@
 package com.example.atosrm.presentation.fr.list_fragment.module
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -18,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -44,6 +44,7 @@ import com.example.atosrm.presentation.ui.elements.text.SmallText
         modifier = Modifier
             .clip(MaterialTheme.shapes.medium)
             .background(MaterialTheme.colorScheme.primary)
+            .defaultMinSize(minHeight = 120.dp)
             .clickable { }
             .fillMaxWidth(localWidth.current.extraLarge),
         contentAlignment = Alignment.Center
@@ -54,14 +55,14 @@ import com.example.atosrm.presentation.ui.elements.text.SmallText
             val (icon, personName, skills, shortInfo, exitButton) = createRefs()
 
             Image(
-                painter = rememberAsyncImagePainter(Uri.parse(person.avatar)),
+                bitmap = person.avatar.decodeBitmap().asImageBitmap(),
                 contentDescription = null,
                 modifier = Modifier
                     .constrainAs(icon) {
                         start.linkTo(parent.start)
                         top.linkTo(parent.top, margin = spacing.small)
                     }
-                    .size(100.dp)
+                    .size(70.dp)
                     .clip(CircleShape)
                     .border(2.dp, Color.Gray, CircleShape),
                 contentScale = ContentScale.Crop
@@ -70,7 +71,7 @@ import com.example.atosrm.presentation.ui.elements.text.SmallText
             LargeText(
                 value = person.fullName,
                 modifier = Modifier.constrainAs(personName) {
-                    top.linkTo(icon.top, margin = (-10).dp)
+                    top.linkTo(icon.top)
                     start.linkTo(icon.end, margin = spacing.small)
                 },
             )
@@ -97,4 +98,10 @@ import com.example.atosrm.presentation.ui.elements.text.SmallText
             )
         }
     }
+}
+
+
+
+private fun ByteArray.decodeBitmap(): Bitmap {
+    return BitmapFactory.decodeByteArray(this, 0, size)
 }

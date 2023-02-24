@@ -17,6 +17,7 @@ import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
     mainActivityViewModel: MainActivityViewModel,
     navController: NavController
 ) {
+    val context = LocalContext.current
     var actionFab by remember { mutableStateOf(0) }
 
     AnimatedVisibility(
@@ -32,5 +33,5 @@ import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
         }
     }
 
-    LaunchedEffect(key1 = actionFab, block = { if(actionFab != 0 ) mainActivityViewModel.fabButtonAction() })
+    LaunchedEffect(key1 = actionFab, block = { if(actionFab != 0 ) mainActivityViewModel.fabButtonAction(context) })
 }

@@ -11,7 +11,7 @@ import com.example.atosrm.data.person_srm.ShortInfoConverters
     entities = [
         PersonSRM::class
     ],
-    version = 7
+    version = 9
 )
 @TypeConverters(ShortInfoConverters::class)
 abstract class ApplicationDataBase: RoomDatabase() {

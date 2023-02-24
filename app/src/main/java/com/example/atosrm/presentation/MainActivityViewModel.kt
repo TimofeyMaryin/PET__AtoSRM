@@ -2,6 +2,7 @@ package com.example.atosrm.presentation
 
 import android.app.Application
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.getValue
@@ -18,6 +19,7 @@ import com.example.atosrm.presentation.fr.add_person_srm.AddPersonViewModel
 import com.example.atosrm.presentation.navigation.ADD_PERSON_FRAGMENT
 import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
 
@@ -31,11 +33,11 @@ class MainActivityViewModel (
     var isOpenNonMainMenuEl by mutableStateOf(false)
     var currentNavBackState by mutableStateOf(LIST_FRAGMENT)
 
-    suspend fun fabButtonAction(){
+    suspend fun fabButtonAction(context: Context){
         if (!isOpenNonMainMenuEl) {
             _fab_action_in_main_screens()
         } else {
-            _fab_action_when_create_person()
+            _fab_action_when_create_person(context = context)
         }
     }
 
@@ -45,7 +47,7 @@ class MainActivityViewModel (
         currentNavBackState = ADD_PERSON_FRAGMENT
     }
 
-    private suspend fun _fab_action_when_create_person() {
+    private suspend fun _fab_action_when_create_person(context: Context) {
         Toast.makeText(application, "Person is created", Toast.LENGTH_SHORT).show()
         if (validateInfo()) {
 
@@ -55,7 +57,7 @@ class MainActivityViewModel (
                     skills = addPersonViewModel.personSkills,
                     shortInfo = addPersonViewModel.shortInfoMutableList,
                     fullInfo = addPersonViewModel.personInfo,
-                    avatar = addPersonViewModel.personAvatar,
+                    avatar = saveImage(addPersonViewModel.personAvatar!!),
                 ),
                 dao = dao,
             )
@@ -68,8 +70,14 @@ class MainActivityViewModel (
         return addPersonViewModel.personName.isNotEmpty() &&
                 addPersonViewModel.personSkills.isNotEmpty() &&
                 addPersonViewModel.personInfo.isNotEmpty() &&
-                addPersonViewModel.shortInfoMutableList.size != 0 &&
-                addPersonViewModel.personAvatar.isNotEmpty()
+                addPersonViewModel.shortInfoMutableList.size != 0
+    }
+
+    private fun saveImage(bitmap: Bitmap): ByteArray {
+        val data = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, data)
+
+        return data.toByteArray()
     }
 
 

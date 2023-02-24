@@ -1,5 +1,10 @@
 package com.example.atosrm.presentation.fr.add_person_srm
 
+import android.content.ContentResolver
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -8,6 +13,9 @@ import androidx.lifecycle.ViewModel
 import com.example.atosrm.R
 import com.example.atosrm.domain.model.TextFieldModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.IOException
 import javax.inject.Inject
 
 
@@ -17,7 +25,7 @@ class AddPersonViewModel @Inject constructor(): ViewModel(){
     var personSkills by mutableStateOf("")
     var personInfo by mutableStateOf("")
     var shortInfo by mutableStateOf("")
-    var personAvatar by mutableStateOf("")
+    var personAvatar by mutableStateOf<Bitmap?>(null)
 
     var shortInfoMutableList = mutableListOf<String>()
 
@@ -37,6 +45,17 @@ class AddPersonViewModel @Inject constructor(): ViewModel(){
     }
 
     fun deleteShortInfoItem(index: Int) = shortInfoMutableList.removeAt(index)
+
+
+
+    @Throws(IOException::class)
+    fun getBitmapFromUri(context: Context, uri: Uri): Bitmap {
+        val contentResolver: ContentResolver = context.contentResolver
+        val inputStream = contentResolver.openInputStream(uri)
+        val bitmap = BitmapFactory.decodeStream(inputStream)
+        inputStream?.close()
+        return bitmap
+    }
 
 }
 
