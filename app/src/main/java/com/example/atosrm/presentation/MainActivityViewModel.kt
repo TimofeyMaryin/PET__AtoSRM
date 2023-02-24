@@ -62,6 +62,9 @@ class MainActivityViewModel (
                 dao = dao,
             )
             navController.popBackStack()
+            addPersonViewModel.cleanTextField()
+            currentNavBackState = LIST_FRAGMENT
+            isOpenNonMainMenuEl = !isOpenNonMainMenuEl
             Log.e("_fab_action_when_create_person", "count peroson: ${dao.getAllUser().size}", )
         }
     }
@@ -79,6 +82,7 @@ class MainActivityViewModel (
 
         return data.toByteArray()
     }
+
 
 
 }

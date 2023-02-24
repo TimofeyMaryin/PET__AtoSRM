@@ -6,8 +6,8 @@ class ShortInfoConverters {
 
     @TypeConverter
     fun fromStringToList(value: String): List<String> {
-        val words = value.split(",")
-        return words.map {  it.trim() }
+        val words = value.filter { !it.isWhitespace() }.split(",")
+        return words.map { it.trim() }
     }
 
     @TypeConverter

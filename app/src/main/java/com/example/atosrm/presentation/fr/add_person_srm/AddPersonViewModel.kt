@@ -57,6 +57,14 @@ class AddPersonViewModel @Inject constructor(): ViewModel(){
         return bitmap
     }
 
+    fun cleanTextField(){
+        personName = ""
+        personSkills = ""
+        personInfo = ""
+        shortInfo = ""
+        personAvatar = null
+    }
+
 }
 
 

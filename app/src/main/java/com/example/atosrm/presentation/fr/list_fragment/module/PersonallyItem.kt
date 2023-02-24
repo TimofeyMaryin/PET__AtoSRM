@@ -9,6 +9,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -81,10 +83,21 @@ import com.example.atosrm.presentation.ui.elements.text.SmallText
                 start.linkTo(icon.end, margin = spacing.small)
             })
 
-            SmallText(value = "${person.shortInfo[0]} (size: ${person.shortInfo.size})", modifier = Modifier.constrainAs(shortInfo) {
-                top.linkTo(skills.bottom)
-                start.linkTo(icon.end, margin = spacing.small)
-            })
+            LazyRow(
+                modifier = Modifier.constrainAs(shortInfo) {
+                    top.linkTo(skills.bottom)
+                    start.linkTo(icon.end, margin = spacing.small)
+                }
+            ) {
+                items(person.shortInfo) {
+                    if (it.isNotEmpty()) {
+                        Box(modifier = Modifier.padding(end = 5.dp, top = 10.dp), contentAlignment = Alignment.Center){
+                            ShortInfoItem(value = it)
+                        }
+                    }
+                }
+            }
+
 
             Icon(
                 painter = painterResource(id = R.drawable.read_more),

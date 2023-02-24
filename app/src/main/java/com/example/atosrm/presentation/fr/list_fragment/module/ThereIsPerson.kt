@@ -3,6 +3,7 @@ package com.example.atosrm.presentation.fr.list_fragment.module
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -27,6 +28,10 @@ import com.example.atosrm.data.person_srm.PersonSRM
             Container {
                 PersonallyItem(person = it)
             }
+        }
+        
+        item {
+            Box(modifier = Modifier.fillMaxWidth().height(200.dp))
         }
     }
 }
