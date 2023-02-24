@@ -17,6 +17,7 @@ class AddPersonViewModel @Inject constructor(): ViewModel(){
     var personSkills by mutableStateOf("")
     var personInfo by mutableStateOf("")
     var shortInfo by mutableStateOf("")
+    var imageUriString by mutableStateOf("")
 
     var shortInfoMutableList = mutableListOf<String>()
 
@@ -29,8 +30,10 @@ class AddPersonViewModel @Inject constructor(): ViewModel(){
     )
 
     fun addInfoToList() {
-        shortInfoMutableList.add(shortInfo)
-        shortInfo = ""
+        if (shortInfoMutableList.size <= 4){
+            shortInfoMutableList.add(shortInfo)
+            shortInfo = ""
+        }
     }
 
     fun deleteShortInfoItem(index: Int) = shortInfoMutableList.removeAt(index)
