@@ -32,6 +32,8 @@
 
     <string name="place_holder_search_text_field">Search</string>
 
-    <string name="hint_how_find_element">Items found: %s</string>
+    <string name="hint_how_find_element">Person found: %s</string>
+    <string name="hint_not_found_element">Not found %s</string>
+    <string name="hint_search_empty_element">Try to found your contact</string>
 
 </resources>

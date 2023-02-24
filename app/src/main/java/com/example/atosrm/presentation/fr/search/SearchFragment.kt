@@ -19,7 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.atosrm.R
 import com.example.atosrm.data.person_srm.PersonSRM
 import com.example.atosrm.data.state.PositionIconHeader
@@ -61,12 +66,19 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
             }
         } else {
             item {
-                __ThereIsNotContent(searchValue = viewModel.searchValue)
+                if (viewModel.searchValue.isEmpty()) {
+                    __DefaultScreenWithoutSearch()
+                } else {
+                    __ThereIsNotContent(searchValue = viewModel.searchValue)
+                }
+
             }
         }
 
         item {
-            Box(modifier = Modifier.fillMaxWidth().height(200.dp))
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp))
         }
     }
 
@@ -139,7 +151,48 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 }
 
 @Composable private fun __ThereIsNotContent(searchValue: String) {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        LargeText(value = "We cant find $searchValue")
+    val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.not_found))
+    val progress by animateLottieCompositionAsState(
+        composition = composition,
+        iterations = Int.MAX_VALUE
+    )
+    ConstraintLayout(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        val (animateRefs, textRefs) = createRefs()
+
+        LottieAnimation(
+            composition = composition,
+            progress = progress,
+            modifier = Modifier.constrainAs(animateRefs) {
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            },
+            alignment = Alignment.Center
+        )
+
+        LargeText(
+            value = stringResource(
+                id = R.string.hint_not_found_element,
+                searchValue
+            ),
+            modifier = Modifier.constrainAs(textRefs) {
+                top.linkTo(animateRefs.bottom)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            },
+            color = MaterialTheme.colorScheme.primary
+        )
+    }
+}
+
+@Composable private fun __DefaultScreenWithoutSearch(){
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+        LargeText(
+            value = R.string.hint_search_empty_element,
+            color = MaterialTheme.colorScheme.primary
+        )
     }
 }
