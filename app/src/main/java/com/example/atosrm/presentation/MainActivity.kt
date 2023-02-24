@@ -16,6 +16,7 @@ import com.example.atosrm.R
 import com.example.atosrm.data.ApplicationDataBase
 import com.example.atosrm.presentation.fr.add_person_srm.AddPersonViewModel
 import com.example.atosrm.presentation.fr.list_fragment.ListFragmentViewModel
+import com.example.atosrm.presentation.fr.list_fragment.ListViewModelFactory
 import com.example.atosrm.presentation.navigation.ADD_PERSON_FRAGMENT
 import com.example.atosrm.presentation.navigation.AppNavHost
 import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
@@ -39,7 +40,11 @@ class MainActivity : ComponentActivity() {
 @Composable private fun contents(application: Application) {
     val dao = ApplicationDataBase.getInstance(application).personSRMDao()
 
-    val listFragmentViewModel: ListFragmentViewModel = hiltViewModel()
+    val listFragmentViewModel: ListFragmentViewModel = viewModel(
+        factory = ListViewModelFactory(
+            dao = dao
+        )
+    )
     val addPersonViewModel: AddPersonViewModel = hiltViewModel()
     val navController = rememberNavController()
     val mainActivityViewModel: MainActivityViewModel = viewModel(

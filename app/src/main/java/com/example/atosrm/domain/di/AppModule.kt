@@ -24,4 +24,6 @@ object AppModule {
         navigatorProvider.addNavigator(DialogNavigator())
     }
 
+
+
 }

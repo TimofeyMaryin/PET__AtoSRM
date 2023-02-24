@@ -4,16 +4,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.atosrm.R
 import com.example.atosrm.data.state.PositionIconHeader
+import com.example.atosrm.presentation.fr.list_fragment.module.ListOfPersonally
 import com.example.atosrm.presentation.ui.dimenston.localSpacing
 import com.example.atosrm.presentation.ui.elements.Header
-import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
 
 
 @Composable fun ListFragment(
@@ -44,8 +43,6 @@ import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         }, viewModel = viewModel)
-
-
 
     }
 }

@@ -1,4 +1,4 @@
-package com.example.atosrm.presentation.fr.list_fragment
+package com.example.atosrm.presentation.fr.list_fragment.module
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +15,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.atosrm.R
+import com.example.atosrm.presentation.ui.elements.text.LargeText
 
 @Composable fun ThereIsNotPerson(){
     val localWidth = LocalConfiguration.current.screenWidthDp

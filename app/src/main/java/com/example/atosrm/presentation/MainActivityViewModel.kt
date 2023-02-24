@@ -2,6 +2,7 @@ package com.example.atosrm.presentation
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,6 +13,7 @@ import com.example.atosrm.data.person_srm.PersonSRM
 import com.example.atosrm.data.person_srm.PersonSRMDao
 import com.example.atosrm.data.person_srm.PersonSRMImpl
 import com.example.atosrm.data.person_srm.PersonSRMRepo
+import com.example.atosrm.domain.use_cases.person_srm.AddPersonUseCase
 import com.example.atosrm.presentation.fr.add_person_srm.AddPersonViewModel
 import com.example.atosrm.presentation.navigation.ADD_PERSON_FRAGMENT
 import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
@@ -46,16 +48,19 @@ class MainActivityViewModel (
     private suspend fun _fab_action_when_create_person() {
         Toast.makeText(application, "Person is created", Toast.LENGTH_SHORT).show()
         if (validateInfo()) {
-            dao.insertPerson(
+
+            AddPersonUseCase.execute(
                 person = PersonSRM(
                     fullName = addPersonViewModel.personName,
                     skills = addPersonViewModel.personSkills,
                     shortInfo = addPersonViewModel.shortInfoMutableList,
                     fullInfo = addPersonViewModel.personInfo,
-                    avatar = addPersonViewModel.personAvatar
-                )
+                    avatar = addPersonViewModel.personAvatar,
+                ),
+                dao = dao,
             )
-
+            navController.popBackStack()
+            Log.e("_fab_action_when_create_person", "count peroson: ${dao.getAllUser().size}", )
         }
     }
 

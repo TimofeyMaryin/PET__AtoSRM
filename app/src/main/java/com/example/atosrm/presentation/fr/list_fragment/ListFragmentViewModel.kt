@@ -4,17 +4,20 @@ import android.app.Application
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.atosrm.data.ApplicationDataBase
+import com.example.atosrm.data.person_srm.PersonSRM
+import com.example.atosrm.data.person_srm.PersonSRMDao
 import com.example.atosrm.data.person_srm.PersonSRMImpl
+import com.example.atosrm.data.person_srm.PersonSRMRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
-@HiltViewModel
-class ListFragmentViewModel @Inject constructor(
-    private val application: Application
-): ViewModel() {
-    private val repo = PersonSRMImpl(application = application)
 
-    suspend fun getAllList() = repo.getAllUser()
-    suspend fun checkIsTherePerson() = getAllList().isEmpty()
+class ListFragmentViewModel(
+    private val dao: PersonSRMDao
+): ViewModel() {
+    suspend fun getAllUser(): MutableList<PersonSRM> = dao.getAllUser()
+
+
+
 }
