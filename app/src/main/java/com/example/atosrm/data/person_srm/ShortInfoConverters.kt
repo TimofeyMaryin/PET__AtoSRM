@@ -15,7 +15,7 @@ class ShortInfoConverters {
         var res: String = ""
 
         value.forEach {
-            res += it
+            res += "${it},"
         }
 
         return res

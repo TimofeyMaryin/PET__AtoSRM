@@ -81,7 +81,7 @@ import com.example.atosrm.presentation.ui.elements.text.SmallText
                 start.linkTo(icon.end, margin = spacing.small)
             })
 
-            SmallText(value = person.shortInfo[0], modifier = Modifier.constrainAs(shortInfo) {
+            SmallText(value = "${person.shortInfo[0]} (size: ${person.shortInfo.size})", modifier = Modifier.constrainAs(shortInfo) {
                 top.linkTo(skills.bottom)
                 start.linkTo(icon.end, margin = spacing.small)
             })
