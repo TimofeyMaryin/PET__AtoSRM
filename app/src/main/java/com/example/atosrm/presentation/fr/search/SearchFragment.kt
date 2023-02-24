@@ -1,8 +1,12 @@
 package com.example.atosrm.presentation.fr.search
 
 import android.app.Application
-import android.provider.Settings.Global.getString
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -17,10 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -28,10 +31,8 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.atosrm.R
 import com.example.atosrm.data.person_srm.PersonSRM
 import com.example.atosrm.data.state.PositionIconHeader
-import com.example.atosrm.presentation.MainActivityViewModel
 import com.example.atosrm.presentation.fr.list_fragment.module.PersonallyItem
 import com.example.atosrm.presentation.ui.dimenston.localWidth
-import com.example.atosrm.presentation.ui.elements.AppTextField
 import com.example.atosrm.presentation.ui.elements.Header
 import com.example.atosrm.presentation.ui.elements.text.DefaultText
 import com.example.atosrm.presentation.ui.elements.text.LargeText
@@ -54,15 +55,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
                 __ThereIsContent(personSRM = it)
             }
             item {
-                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                    DefaultText(
-                        value = stringResource(
-                            R.string.hint_how_find_element,
-                            searchItem.size
-                        ),
-                        color = MaterialTheme.colorScheme.outline
-                    )
-                }
+                __HowManyItemsFound(count = searchItem.size)
             }
         } else {
             item {
@@ -98,14 +91,23 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 
 
 @Composable private fun __ThereIsContent(personSRM: PersonSRM) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth(localWidth.current.extraLarge)
-            .padding(vertical = 7.dp),
-        contentAlignment = Alignment.Center
-    ){
-        PersonallyItem(person = personSRM)
+    var isShowAnim by remember { mutableStateOf(false) }
+
+    AnimatedVisibility(
+        visible = isShowAnim,
+        enter = slideInHorizontally(tween(400)) + fadeIn(tween(400))
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(localWidth.current.extraLarge)
+                .padding(vertical = 7.dp),
+            contentAlignment = Alignment.Center
+        ){
+            PersonallyItem(person = personSRM)
+        }
     }
+
+    LaunchedEffect(key1 = Unit, block = { isShowAnim = true })
 }
 @Composable private fun __Header(viewModel: SearchViewModel){
     Header(
@@ -151,6 +153,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 }
 
 @Composable private fun __ThereIsNotContent(searchValue: String) {
+    var isShowAnim by remember { mutableStateOf(false) }
     val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.not_found))
     val progress by animateLottieCompositionAsState(
         composition = composition,
@@ -161,38 +164,81 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
     ) {
         val (animateRefs, textRefs) = createRefs()
 
-        LottieAnimation(
-            composition = composition,
-            progress = progress,
+        AnimatedVisibility(
+            visible = isShowAnim,
+            enter = slideInVertically(tween(400)) + fadeIn(tween(400)),
             modifier = Modifier.constrainAs(animateRefs) {
                 top.linkTo(parent.top)
                 bottom.linkTo(parent.bottom)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
-            },
-            alignment = Alignment.Center
-        )
+            }
+        ) {
+            LottieAnimation(
+                composition = composition,
+                progress = progress,
+                alignment = Alignment.Center
+            )
+        }
 
-        LargeText(
-            value = stringResource(
-                id = R.string.hint_not_found_element,
-                searchValue
-            ),
+        AnimatedVisibility(
+            visible = isShowAnim,
+            enter = slideInVertically(tween(400)) { it / 2 } + fadeIn(tween(400)),
             modifier = Modifier.constrainAs(textRefs) {
                 top.linkTo(animateRefs.bottom)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
-            },
-            color = MaterialTheme.colorScheme.primary
-        )
+            }
+        ) {
+            LargeText(
+                value = stringResource(
+                    id = R.string.hint_not_found_element,
+                    searchValue
+                ),
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
+
     }
+
+    LaunchedEffect(key1 = Unit, block = { isShowAnim = true })
 }
 
 @Composable private fun __DefaultScreenWithoutSearch(){
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
-        LargeText(
-            value = R.string.hint_search_empty_element,
-            color = MaterialTheme.colorScheme.primary
+    val localConfiguration = LocalConfiguration.current
+    var isShowAnim by remember { mutableStateOf(false) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(
+                localConfiguration.screenHeightDp.dp
+            ),
+        contentAlignment = Alignment.Center
+    ){
+        AnimatedVisibility(
+            visible = isShowAnim,
+            enter = fadeIn(tween(700))
+        ) {
+            LargeText(
+                value = R.string.hint_search_empty_element,
+                color = MaterialTheme.colorScheme.primary,
+            )
+        }
+    }
+
+    LaunchedEffect(key1 = Unit, block = { isShowAnim = true })
+}
+
+
+@Composable private fun __HowManyItemsFound(count: Int) {
+    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+        DefaultText(
+            value = stringResource(
+                R.string.hint_how_find_element,
+                count
+            ),
+            color = MaterialTheme.colorScheme.outline
         )
     }
 }
