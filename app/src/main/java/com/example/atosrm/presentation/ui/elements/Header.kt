@@ -1,5 +1,6 @@
 package com.example.atosrm.presentation.ui.elements
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -7,6 +8,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -81,17 +83,66 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 
 }
 
-@Composable
-@Preview(widthDp = 230)
-fun PreviewHeader() {
-    Header(
-        title = R.string.menu_list_name,
-        modifier = Modifier,
-        icon = R.drawable.setting_ic,
-        position = PositionIconHeader.END
+
+@Composable fun Header(
+    centerContent: @Composable () -> Unit,
+    modifier: Modifier,
+    icon: Int,
+    position: PositionIconHeader,
+    onAction: () -> Unit,
+) {
+    val currentWidth = localWidth.current
+
+    ConstraintLayout(
+        modifier = Modifier
+            .fillMaxWidth(currentWidth.large)
+            .padding(vertical = localSpacing.current.small)
+            .then(modifier)
     ) {
+        val (iconRefs, titleRefs) = createRefs()
+
+        Box(
+            modifier = Modifier.constrainAs(titleRefs) {
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+                end.linkTo(parent.end)
+                start.linkTo(parent.start)
+            },
+            contentAlignment = Alignment.Center,
+        ) {
+            centerContent()
+        }
+
+        IconButton(
+            onClick = { onAction() },
+            modifier = Modifier.constrainAs(iconRefs){
+                when(position) {
+                    PositionIconHeader.START -> {
+                        start.linkTo(parent.start)
+                        bottom.linkTo(parent.bottom)
+                        top.linkTo(parent.top)
+                    }
+                    PositionIconHeader.END -> {
+                        end.linkTo(parent.end)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                    }
+                    else -> {}
+                }
+            }
+        ) {
+            if (position != PositionIconHeader.NOTHING) {
+                Icon(
+                    painter = painterResource(id = icon),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onBackground
+                )
+            }
+        }
+
 
     }
+
 }
 
 

@@ -1,9 +1,11 @@
 package com.example.atosrm.presentation
 
 import android.app.Application
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.*
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
@@ -17,6 +19,7 @@ import com.example.atosrm.data.ApplicationDataBase
 import com.example.atosrm.presentation.fr.add_person_srm.AddPersonViewModel
 import com.example.atosrm.presentation.fr.list_fragment.ListFragmentViewModel
 import com.example.atosrm.presentation.fr.list_fragment.ListViewModelFactory
+import com.example.atosrm.presentation.fr.search.SearchViewModel
 import com.example.atosrm.presentation.navigation.ADD_PERSON_FRAGMENT
 import com.example.atosrm.presentation.navigation.AppNavHost
 import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
@@ -26,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.P)
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +40,7 @@ class MainActivity : ComponentActivity() {
 }
 
 
+@RequiresApi(Build.VERSION_CODES.P)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable private fun contents(application: Application) {
     val dao = ApplicationDataBase.getInstance(application).personSRMDao()
@@ -45,6 +50,7 @@ class MainActivity : ComponentActivity() {
             dao = dao
         )
     )
+    val searchViewModel: SearchViewModel = viewModel()
     val addPersonViewModel: AddPersonViewModel = hiltViewModel()
     val navController = rememberNavController()
     val mainActivityViewModel: MainActivityViewModel = viewModel(
@@ -77,7 +83,9 @@ class MainActivity : ComponentActivity() {
                     navController = navController,
                     mainActivityViewModel = mainActivityViewModel,
                     addPersonViewModel = addPersonViewModel,
-                    listFragmentViewModel = listFragmentViewModel
+                    listFragmentViewModel = listFragmentViewModel,
+                    application = application,
+                    searchViewModel = searchViewModel
                 )
             }
         )

@@ -30,4 +30,6 @@
 
     <string name="limit_short_info">Limit 4</string>
 
+    <string name="place_holder_search_text_field">Search</string>
+
 </resources>

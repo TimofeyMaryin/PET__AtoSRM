@@ -1,5 +1,8 @@
 package com.example.atosrm.presentation.navigation
 
+import android.app.Application
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -13,13 +16,17 @@ import com.example.atosrm.presentation.fr.list_fragment.ListFragment
 import com.example.atosrm.presentation.fr.list_fragment.ListFragmentViewModel
 import com.example.atosrm.presentation.fr.profile.ProfileFragment
 import com.example.atosrm.presentation.fr.search.SearchFragment
+import com.example.atosrm.presentation.fr.search.SearchViewModel
 
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable fun AppNavHost(
     navController: NavHostController,
     mainActivityViewModel: MainActivityViewModel,
     addPersonViewModel: AddPersonViewModel,
     listFragmentViewModel: ListFragmentViewModel,
+    application: Application,
+    searchViewModel: SearchViewModel
 ) {
 
     NavHost(
@@ -28,7 +35,7 @@ import com.example.atosrm.presentation.fr.search.SearchFragment
     ) {
         composable(LIST_FRAGMENT) { ListFragment(navController = navController, viewModel = listFragmentViewModel) }
         composable(SETTINGS_FRAGMENT) {}
-        composable(SEARCH_FRAGMENT) { SearchFragment() }
+        composable(SEARCH_FRAGMENT) { SearchFragment(application = application, viewModel = searchViewModel) }
         composable(ADD_PERSON_FRAGMENT) { AddPersonFragment(navController = navController, viewModel = addPersonViewModel, mainViewModel = mainActivityViewModel) }
         composable(PROFILE_FRAGMENT) { ProfileFragment() }
         composable(SHOW_PERSONAL_FRAGMENT) {}
