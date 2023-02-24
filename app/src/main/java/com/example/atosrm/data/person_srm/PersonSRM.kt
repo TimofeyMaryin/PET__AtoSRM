@@ -11,4 +11,5 @@ data class PersonSRM(
     @ColumnInfo(name = "skills") var skills: String,
     @TypeConverters(ShortInfoConverters::class) var shortInfo: List<String>,
     @ColumnInfo(name = "full_info") var fullInfo: String,
+    @ColumnInfo(name = "avatar") var avatar: String,
 )

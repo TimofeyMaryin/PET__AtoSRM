@@ -11,7 +11,7 @@ import com.example.atosrm.data.person_srm.ShortInfoConverters
     entities = [
         PersonSRM::class
     ],
-    version = 6
+    version = 7
 )
 @TypeConverters(ShortInfoConverters::class)
 abstract class ApplicationDataBase: RoomDatabase() {
@@ -30,7 +30,7 @@ abstract class ApplicationDataBase: RoomDatabase() {
                         application,
                         ApplicationDataBase::class.java,
                         "person.dp"
-                    ).allowMainThreadQueries().build()
+                    ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
                 }
             }
 

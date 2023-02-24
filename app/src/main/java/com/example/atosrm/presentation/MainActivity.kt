@@ -1,5 +1,6 @@
 package com.example.atosrm.presentation
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.atosrm.R
@@ -23,16 +25,18 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { contents() }
+
+        setContent { contents(application = application) }
 
     }
 }
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Composable private fun contents() {
-    val mainActivityViewModel: MainActivityViewModel = viewModel()
+@Composable private fun contents(application: Application) {
+
     val navController = rememberNavController()
+    val mainActivityViewModel: MainActivityViewModel = viewModel(factory = MainActivityViewModelFactory(navController = navController, application = application))
     var currentFABIcon by remember {
         mutableStateOf(R.drawable.edit_ic)
     }

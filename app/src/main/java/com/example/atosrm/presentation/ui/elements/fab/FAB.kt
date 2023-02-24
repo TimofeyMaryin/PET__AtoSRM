@@ -1,9 +1,11 @@
 package com.example.atosrm.presentation.ui.elements.fab
 
+import android.widget.Toast
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.example.atosrm.R
 import com.example.atosrm.presentation.MainActivityViewModel
@@ -15,6 +17,8 @@ import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
     mainActivityViewModel: MainActivityViewModel,
     navController: NavController
 ) {
+    val context = LocalContext.current
+
     AnimatedVisibility(
         visible = mainActivityViewModel.currentNavBackState == LIST_FRAGMENT || mainActivityViewModel.currentNavBackState == ADD_PERSON_FRAGMENT,
         enter = scaleIn(tween(400)) + fadeIn(tween(400)),
@@ -24,10 +28,7 @@ import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
             icon = if(mainActivityViewModel.isOpenNonMainMenuEl ) R.drawable.save_as_ic else R.drawable.edit_ic,
             modifier = Modifier,
         ) {
-            navController.navigate(ADD_PERSON_FRAGMENT)
-            mainActivityViewModel.isOpenNonMainMenuEl = true
-            mainActivityViewModel.currentNavBackState = ADD_PERSON_FRAGMENT
-
+            mainActivityViewModel.fabButtonAction()
         }
     }
 }
