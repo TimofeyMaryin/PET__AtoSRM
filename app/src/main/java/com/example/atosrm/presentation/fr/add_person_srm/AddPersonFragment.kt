@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -144,26 +146,20 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
         
 
         item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.End
-            ) {
-
-                Box(modifier = Modifier.padding(horizontal = localSpacing.current.medium), contentAlignment = Alignment.Center) {
-                    AppButton(value = "Add tags") {
-                        if(viewModel.shortInfo.isNotEmpty()) viewModel.addInfoToList()
-                    }
+            Box(modifier = Modifier.fillMaxWidth(localWidth.current.large), contentAlignment = Alignment.CenterEnd) {
+                AppButton(
+                    value = "Add tags",
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    ),
+                    borderColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    enable = viewModel.shortInfo.isNotEmpty()
+                ) {
+                    if(viewModel.shortInfo.isNotEmpty()) viewModel.addInfoToList()
                 }
-
-                Box(modifier = Modifier.padding(horizontal = localSpacing.current.medium), contentAlignment = Alignment.Center){
-                    AppButton(value = "ADd person") {
-
-                    }
-                }
-
-
             }
+
         }
 
         item {

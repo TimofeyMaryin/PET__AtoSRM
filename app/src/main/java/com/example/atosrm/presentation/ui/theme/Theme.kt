@@ -39,7 +39,7 @@ private val DarkColorScheme = darkColorScheme(
 
     background = Neutral10,
     onBackground = Neutral90,
-    surface = Neutral10,
+    surface = Neutral20,
     onSurface = Neutral80,
 
     surfaceVariant = NeutralVariant30,
