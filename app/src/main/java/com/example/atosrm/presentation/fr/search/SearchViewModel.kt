@@ -16,5 +16,6 @@ class SearchViewModel: ViewModel() {
     }
 
     suspend fun searchPerson(application: Application, searchValue: String) = SearchUseCase.execute(application, searchValue)
+    fun cleanSearchBar() { searchValue = "" }
 
 }

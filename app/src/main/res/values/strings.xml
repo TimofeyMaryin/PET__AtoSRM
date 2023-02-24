@@ -32,4 +32,6 @@
 
     <string name="place_holder_search_text_field">Search</string>
 
+    <string name="hint_how_find_element">Items found: %s</string>
+
 </resources>

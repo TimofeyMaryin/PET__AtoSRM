@@ -113,30 +113,33 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
             centerContent()
         }
 
-        IconButton(
-            onClick = { onAction() },
-            modifier = Modifier.constrainAs(iconRefs){
-                when(position) {
-                    PositionIconHeader.START -> {
-                        start.linkTo(parent.start)
-                        bottom.linkTo(parent.bottom)
-                        top.linkTo(parent.top)
+        if (icon != -1) {
+
+            IconButton(
+                onClick = { onAction() },
+                modifier = Modifier.constrainAs(iconRefs){
+                    when(position) {
+                        PositionIconHeader.START -> {
+                            start.linkTo(parent.start)
+                            bottom.linkTo(parent.bottom)
+                            top.linkTo(parent.top)
+                        }
+                        PositionIconHeader.END -> {
+                            end.linkTo(parent.end)
+                            top.linkTo(parent.top)
+                            bottom.linkTo(parent.bottom)
+                        }
+                        else -> {}
                     }
-                    PositionIconHeader.END -> {
-                        end.linkTo(parent.end)
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                    }
-                    else -> {}
                 }
-            }
-        ) {
-            if (position != PositionIconHeader.NOTHING) {
-                Icon(
-                    painter = painterResource(id = icon),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onBackground
-                )
+            ) {
+                if (position != PositionIconHeader.NOTHING) {
+                    Icon(
+                        painter = painterResource(id = icon),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onBackground
+                    )
+                }
             }
         }
 
