@@ -13,6 +13,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.atosrm.R
+import com.example.atosrm.data.ApplicationDataBase
+import com.example.atosrm.presentation.fr.add_person_srm.AddPersonViewModel
+import com.example.atosrm.presentation.fr.list_fragment.ListFragmentViewModel
 import com.example.atosrm.presentation.navigation.ADD_PERSON_FRAGMENT
 import com.example.atosrm.presentation.navigation.AppNavHost
 import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
@@ -34,9 +37,19 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable private fun contents(application: Application) {
+    val dao = ApplicationDataBase.getInstance(application).personSRMDao()
 
+    val listFragmentViewModel: ListFragmentViewModel = hiltViewModel()
+    val addPersonViewModel: AddPersonViewModel = hiltViewModel()
     val navController = rememberNavController()
-    val mainActivityViewModel: MainActivityViewModel = viewModel(factory = MainActivityViewModelFactory(navController = navController, application = application))
+    val mainActivityViewModel: MainActivityViewModel = viewModel(
+        factory = MainActivityViewModelFactory(
+            navController = navController,
+            application = application,
+            dao = dao,
+            addPersonViewModel = addPersonViewModel
+        )
+    )
     var currentFABIcon by remember {
         mutableStateOf(R.drawable.edit_ic)
     }
@@ -54,7 +67,14 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier,
                 viewModel = mainActivityViewModel
             ) },
-            content = { it -> AppNavHost(navController = navController, mainActivityViewModel = mainActivityViewModel) }
+            content = { it ->
+                AppNavHost(
+                    navController = navController,
+                    mainActivityViewModel = mainActivityViewModel,
+                    addPersonViewModel = addPersonViewModel,
+                    listFragmentViewModel = listFragmentViewModel
+                )
+            }
         )
 
 

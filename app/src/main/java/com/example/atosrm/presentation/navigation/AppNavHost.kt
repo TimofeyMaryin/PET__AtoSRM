@@ -17,11 +17,10 @@ import com.example.atosrm.presentation.fr.search.SearchFragment
 
 @Composable fun AppNavHost(
     navController: NavHostController,
-    mainActivityViewModel: MainActivityViewModel
+    mainActivityViewModel: MainActivityViewModel,
+    addPersonViewModel: AddPersonViewModel,
+    listFragmentViewModel: ListFragmentViewModel,
 ) {
-    val listFragmentViewModel: ListFragmentViewModel = hiltViewModel()
-    val addPersonViewModel: AddPersonViewModel = hiltViewModel()
-
 
     NavHost(
         navController = navController,

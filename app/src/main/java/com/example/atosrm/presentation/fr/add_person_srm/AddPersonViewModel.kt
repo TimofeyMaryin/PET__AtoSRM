@@ -17,7 +17,7 @@ class AddPersonViewModel @Inject constructor(): ViewModel(){
     var personSkills by mutableStateOf("")
     var personInfo by mutableStateOf("")
     var shortInfo by mutableStateOf("")
-    var imageUriString by mutableStateOf("")
+    var personAvatar by mutableStateOf("")
 
     var shortInfoMutableList = mutableListOf<String>()
 

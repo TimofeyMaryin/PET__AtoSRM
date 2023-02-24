@@ -1,10 +1,7 @@
 package com.example.atosrm.presentation.fr.add_person_srm
 
-import android.app.Instrumentation.ActivityResult
 import android.net.Uri
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -12,9 +9,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
@@ -26,17 +21,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.example.atosrm.R
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import com.example.atosrm.data.state.PositionIconHeader
 import com.example.atosrm.presentation.MainActivityViewModel
 import com.example.atosrm.presentation.fr.add_person_srm.module.AddPersonShortInfoContainer
 import com.example.atosrm.presentation.fr.add_person_srm.module._Add_Person_Container
 import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
-import com.example.atosrm.presentation.ui.dimenston.localSpacing
 import com.example.atosrm.presentation.ui.dimenston.localWidth
 import com.example.atosrm.presentation.ui.elements.AppButton
 import com.example.atosrm.presentation.ui.elements.AppTextField
@@ -56,7 +47,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
         contract = ActivityResultContracts.GetContent(),
         onResult = { uri ->
             selectImage = uri
-            viewModel.imageUriString = uri.toString()
+            viewModel.personAvatar = uri.toString()
         }
     )
 
