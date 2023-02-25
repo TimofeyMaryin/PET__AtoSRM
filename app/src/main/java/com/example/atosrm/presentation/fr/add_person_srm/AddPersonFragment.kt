@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.example.atosrm.R
@@ -101,6 +102,8 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
                                 .build()
                         ),
                         contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize()
                     )
 
                 }

@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.Painter
@@ -59,7 +60,7 @@ import com.example.atosrm.presentation.ui.elements.text.SmallText
         ConstraintLayout(
             modifier = Modifier.fillMaxSize(localWidth.current.large),
         ) {
-            val (icon, personName, skills, shortInfo, exitButton) = createRefs()
+            val (icon, personName, skills, shortInfo, exitButton, rightShadow, leftShadow) = createRefs()
 
             Image(
                 bitmap = person.avatar.decodeBitmap().asImageBitmap(),
@@ -88,11 +89,15 @@ import com.example.atosrm.presentation.ui.elements.text.SmallText
                 start.linkTo(icon.end, margin = spacing.small)
             })
 
+
+
             LazyRow(
-                modifier = Modifier.constrainAs(shortInfo) {
-                    top.linkTo(skills.bottom)
-                    start.linkTo(icon.end, margin = spacing.small)
-                }
+                modifier = Modifier
+                    .fillMaxWidth(.7f)
+                    .constrainAs(shortInfo) {
+                        top.linkTo(skills.bottom)
+                        start.linkTo(icon.end, margin = spacing.small)
+                    }
             ) {
                 items(person.shortInfo) {
                     if (it.isNotEmpty()) {
@@ -102,6 +107,21 @@ import com.example.atosrm.presentation.ui.elements.text.SmallText
                     }
                 }
             }
+
+            // Shadow for tags
+            Box(
+                modifier = Modifier
+                    .height(35.dp)
+                    .width(20.dp)
+                    .background(Brush.horizontalGradient(
+                        0.0f to MaterialTheme.colorScheme.primary,
+                        1.0f to Color.Transparent
+                    ))
+                    .constrainAs(rightShadow) {
+                        top.linkTo(skills.bottom)
+                        start.linkTo(icon.end, margin = spacing.small)
+                }
+            )
 
 
             Icon(

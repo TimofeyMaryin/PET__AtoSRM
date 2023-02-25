@@ -41,7 +41,7 @@ import kotlinx.coroutines.delay
                 placeHolder = R.string.place_holder_short_info,
                 desc = R.string.description_short_info,
                 value = viewModel.shortInfo,
-                onChangeValue = { if(it.length <= 8) viewModel.shortInfo = it }
+                onChangeValue = { if(it.length <= 12) viewModel.shortInfo = it }
             )
 
             Box(modifier = Modifier.fillMaxWidth().padding(vertical = localSpacing.current.large), contentAlignment = Alignment.Center) {

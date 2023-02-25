@@ -38,7 +38,7 @@ class AddPersonViewModel @Inject constructor(): ViewModel(){
     )
 
     fun addInfoToList() {
-        if (shortInfoMutableList.size <= 4){
+        if (shortInfoMutableList.size <= 5){
             shortInfoMutableList.add(shortInfo)
             shortInfo = ""
         }
