@@ -36,4 +36,6 @@
     <string name="hint_not_found_element">Not found <b>%s</b></string>
     <string name="hint_search_empty_element">Try to found your contact</string>
 
+    <string name="person_name">%n</string>
+
 </resources>

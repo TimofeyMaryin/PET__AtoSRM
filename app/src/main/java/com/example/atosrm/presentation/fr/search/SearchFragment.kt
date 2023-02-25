@@ -31,6 +31,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.atosrm.R
 import com.example.atosrm.data.person_srm.PersonSRM
 import com.example.atosrm.data.state.PositionIconHeader
+import com.example.atosrm.presentation.MainActivityViewModel
 import com.example.atosrm.presentation.fr.list_fragment.module.PersonallyItem
 import com.example.atosrm.presentation.ui.dimenston.localWidth
 import com.example.atosrm.presentation.ui.elements.Header
@@ -42,6 +43,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 @Composable fun SearchFragment(
     viewModel: SearchViewModel,
     application: Application,
+    mainViewModel: MainActivityViewModel
 ) {
     var searchItem by remember { mutableStateOf(listOf<PersonSRM>()) }
 
@@ -52,7 +54,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 
         if (searchItem.isNotEmpty() && viewModel.searchValue.isNotEmpty()) {
             items(searchItem){
-                __ThereIsContent(personSRM = it)
+                __ThereIsContent(personSRM = it, mainViewModel = mainViewModel)
             }
             item {
                 __HowManyItemsFound(count = searchItem.size)
@@ -90,7 +92,10 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 }
 
 
-@Composable private fun __ThereIsContent(personSRM: PersonSRM) {
+@Composable private fun __ThereIsContent(
+    personSRM: PersonSRM,
+    mainViewModel: MainActivityViewModel
+) {
     var isShowAnim by remember { mutableStateOf(false) }
 
     AnimatedVisibility(
@@ -103,7 +108,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
                 .padding(vertical = 7.dp),
             contentAlignment = Alignment.Center
         ){
-            PersonallyItem(person = personSRM)
+            PersonallyItem(person = personSRM) { mainViewModel.showPersonFullInfo(personSRM) }
         }
     }
 

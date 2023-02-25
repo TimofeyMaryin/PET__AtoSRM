@@ -25,6 +25,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 
 @Composable fun Header(
     title: Int,
+    params: Any = "",
     modifier: Modifier,
     icon: Int,
     position: PositionIconHeader,
@@ -41,7 +42,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
         val (iconRefs, titleRefs) = createRefs()
 
         LargeText(
-            value = stringResource(id = title),
+            value = stringResource(id = title, params),
             modifier = Modifier.constrainAs(titleRefs) {
                 top.linkTo(parent.top)
                 bottom.linkTo(parent.bottom)

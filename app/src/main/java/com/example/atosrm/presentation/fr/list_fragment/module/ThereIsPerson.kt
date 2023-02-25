@@ -13,10 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.atosrm.data.person_srm.PersonSRM
+import com.example.atosrm.presentation.MainActivityViewModel
 
 @Composable fun ThereIsPerson(
     modifier: Modifier,
-    value: List<PersonSRM>
+    value: List<PersonSRM>,
+    viewModel: MainActivityViewModel
 ){
     LazyColumn(
         modifier = Modifier
@@ -26,7 +28,9 @@ import com.example.atosrm.data.person_srm.PersonSRM
     ) {
         items(value) {
             Container {
-                PersonallyItem(person = it)
+                PersonallyItem(person = it) {
+                     viewModel.showPersonFullInfo(it)
+                }
             }
         }
         

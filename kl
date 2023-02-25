@@ -1,0 +1,67 @@
+[33m9deab1c[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m HEAD@{0}: checkout: moving from dad9fb4fc33c8b0594f045a8ea75b17c9c8a5ff4 to master
+[33mdad9fb4[m HEAD@{1}: commit: refact: animate element in SearchFragment
+[33mc85cec0[m HEAD@{2}: commit: refact: make more usecase in SearchScree
+[33mabe069b[m HEAD@{3}: commit: refact: improve design search screen
+[33m4dd2e59[m HEAD@{4}: commit: feat: impl searchFragment
+[33mbdba5e6[m HEAD@{5}: commit: feat: impl showing all short info list in card
+[33m870fb90[m HEAD@{6}: commit: refact: short info item save like different item and not one item
+[33m679afbd[m HEAD@{7}: commit: feat: impl save image from Gallery to room
+[33mc2f1761[m HEAD@{8}: commit: feat: add permission
+[33m4100293[m HEAD@{9}: commit: feat: impl show person from DataBase but avatar can`t load...
+[33me0610ad[m HEAD@{10}: commit: feat: impl creating person to DataBase
+[33me90395c[m HEAD@{11}: commit: refact: remove action FABs on viewModel
+[33m03fc690[m HEAD@{12}: checkout: moving from master to 03fc6902
+[33m9deab1c[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m HEAD@{13}: commit: fatal: error with DI
+[33m03fc690[m HEAD@{14}: commit: feat: delete btn AddPerson, impl btn AddTags when textField is empty
+[33m474c89a[m HEAD@{15}: commit: feat: impl coild, impl select avatar
+[33m5437fd1[m HEAD@{16}: commit: refact: make AddPersonFragment
+[33mbc32aa8[m HEAD@{17}: commit: feat: create add person fragment
+[33m655810a[m HEAD@{18}: commit: refact: add animation to _FAB_content.kt
+[33mda8ed6c[m HEAD@{19}: commit: refact: moved FAB in folder and add animate
+[33m1c289a5[m HEAD@{20}: commit: refact: change file management in list_fragment
+[33md3c4d0f[m HEAD@{21}: commit: fix: arrow_back_ic detect isOpenNonMainMenuEl
+[33mf41f9d8[m HEAD@{22}: commit: refact: add animate color in BottomBar
+[33m6a87c0c[m HEAD@{23}: commit: feat|refact: change AddPerson module
+[33m118351d[m HEAD@{24}: commit: feat: add lottie animation to ListFragment if it is empty
+[33mf2dbd9c[m HEAD@{25}: commit: feat: impl Lottie
+[33mad32ed3[m HEAD@{26}: commit: refact: change behavior MainActivity.FAB
+[33ma24b2c1[m HEAD@{27}: commit: refact: create mainViewModel and throw some variable in here
+[33mac65f2b[m HEAD@{28}: commit: refact: made condition in ListFragment working when persoonSRM is 0
+[33md15b586[m HEAD@{29}: commit: refact: made in ListFragment real receiving data from Room| made viewModel on hilt structure
+[33m00ebaca[m HEAD@{30}: commit: refact|feat: Refact navigation models; adding fragment to main menu
+[33me6c0031[m HEAD@{31}: commit: feat: Create base structure addPersonContent
+[33m580cf29[m HEAD@{32}: commit: refact: create Converter to Room PersonSRM
+[33mcdf0bda[m HEAD@{33}: commit: reac: make listFragment v1.0
+[33mc0773a5[m HEAD@{34}: commit: feat: add FAB
+[33mf98ca0e[m HEAD@{35}: commit: feat: create listFragment
+[33m06671c6[m HEAD@{36}: commit: fix: implementaion dagger-hilt and room
+[33md26111b[m HEAD@{37}: commit: refac: change fontSize to text model
+[33m6db1e2b[m HEAD@{38}: commit: feat: add application text model
+[33mb54efe8[m HEAD@{39}: commit: feat: add fontFamily and impl these
+[33m1835109[m HEAD@{40}: commit: feat: create navigation for appication
+[33m7bdcb8c[m HEAD@{41}: commit: feat: add use cases for personSRM
+[33mdd11ae9[m HEAD@{42}: commit: refac: add personSRMDao delete function
+[33m7762a36[m HEAD@{43}: commit: feat: add use cases for personSRM
+[33meb826a2[m HEAD@{44}: commit: feat: create localDB and impl personSRMDAO
+[33m63ebe1a[m HEAD@{45}: commit: feat: impl person Entity(most likely not working)
+[33me82acae[m HEAD@{46}: commit: add dep: room, constraint, hilt,navigation
+[33m8b176dc[m HEAD@{47}: commit: feat: impl color scheme
+[33m193e29c[m HEAD@{48}: checkout: moving from ex to master
+[33m87aae64[m[33m ([m[1;32mex[m[33m)[m HEAD@{49}: checkout: moving from master to ex
+[33m193e29c[m HEAD@{50}: commit: feat: add color scheme
+[33mee79c95[m HEAD@{51}: checkout: moving from ex to master
+[33m87aae64[m[33m ([m[1;32mex[m[33m)[m HEAD@{52}: checkout: moving from feature to ex
+[33m8f8c93a[m[33m ([m[1;32mfeature[m[33m)[m HEAD@{53}: checkout: moving from ex to feature
+[33m87aae64[m[33m ([m[1;32mex[m[33m)[m HEAD@{54}: commit: feat: impl color scheme
+[33m3ed7ce5[m HEAD@{55}: commit: feat: add color scheme
+[33m8f8c93a[m[33m ([m[1;32mfeature[m[33m)[m HEAD@{56}: checkout: moving from feature to ex
+[33m8f8c93a[m[33m ([m[1;32mfeature[m[33m)[m HEAD@{57}: commit: feat: add style textField
+[33m384dbb9[m HEAD@{58}: checkout: moving from master to feature
+[33mee79c95[m HEAD@{59}: checkout: moving from feature to master
+[33m384dbb9[m HEAD@{60}: checkout: moving from master to feature
+[33mee79c95[m HEAD@{61}: commit: feat: add local variable for UI
+[33mb416f0d[m HEAD@{62}: checkout: moving from feature to master
+[33m384dbb9[m HEAD@{63}: commit: Feat: add preview on Button
+[33m702e26b[m HEAD@{64}: commit: Feat: add app button
+[33mb416f0d[m HEAD@{65}: checkout: moving from master to feature
+[33mb416f0d[m HEAD@{66}: commit (initial): Create project

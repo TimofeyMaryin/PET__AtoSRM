@@ -18,6 +18,7 @@ import com.example.atosrm.domain.use_cases.person_srm.AddPersonUseCase
 import com.example.atosrm.presentation.fr.add_person_srm.AddPersonViewModel
 import com.example.atosrm.presentation.navigation.ADD_PERSON_FRAGMENT
 import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
+import com.example.atosrm.presentation.navigation.SHOW_PERSONAL_FRAGMENT
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
@@ -26,12 +27,15 @@ import javax.inject.Inject
 class MainActivityViewModel (
     private val navController: NavController,
     private val application: Application,
-    private val dao: PersonSRMDao,
+    val dao: PersonSRMDao,
     private val addPersonViewModel: AddPersonViewModel,
 ): ViewModel() {
 
     var isOpenNonMainMenuEl by mutableStateOf(false)
     var currentNavBackState by mutableStateOf(LIST_FRAGMENT)
+
+    var personToShow by mutableStateOf<PersonSRM?>(null)
+        private set
 
     suspend fun fabButtonAction(context: Context){
         if (!isOpenNonMainMenuEl) {
@@ -81,6 +85,13 @@ class MainActivityViewModel (
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, data)
 
         return data.toByteArray()
+    }
+
+
+    fun showPersonFullInfo(personSRM: PersonSRM) {
+        currentNavBackState = SHOW_PERSONAL_FRAGMENT
+        personToShow = personSRM
+        navController.navigate(SHOW_PERSONAL_FRAGMENT)
     }
 
 

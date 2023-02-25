@@ -3,6 +3,7 @@ package com.example.atosrm.presentation.fr.list_fragment.module
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.service.autofill.OnClickAction
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -33,13 +34,17 @@ import coil.request.ImageRequest
 import com.airbnb.lottie.model.content.CircleShape
 import com.example.atosrm.R
 import com.example.atosrm.data.person_srm.PersonSRM
+import com.example.atosrm.domain.utils.decodeBitmap
 import com.example.atosrm.presentation.ui.dimenston.localSpacing
 import com.example.atosrm.presentation.ui.dimenston.localWidth
 import com.example.atosrm.presentation.ui.elements.text.DefaultText
 import com.example.atosrm.presentation.ui.elements.text.LargeText
 import com.example.atosrm.presentation.ui.elements.text.SmallText
 
-@Composable fun PersonallyItem(person: PersonSRM) {
+@Composable fun PersonallyItem(
+    person: PersonSRM,
+    onClickAction: () -> Unit,
+) {
     val spacing = localSpacing.current
     Log.e("PersonallyItem", "person avatar: ${person.avatar}", )
     Box(
@@ -47,7 +52,7 @@ import com.example.atosrm.presentation.ui.elements.text.SmallText
             .clip(MaterialTheme.shapes.medium)
             .background(MaterialTheme.colorScheme.primary)
             .defaultMinSize(minHeight = 120.dp)
-            .clickable { }
+            .clickable { onClickAction() }
             .fillMaxWidth(localWidth.current.extraLarge),
         contentAlignment = Alignment.Center
     ) {
@@ -115,6 +120,3 @@ import com.example.atosrm.presentation.ui.elements.text.SmallText
 
 
 
-private fun ByteArray.decodeBitmap(): Bitmap {
-    return BitmapFactory.decodeByteArray(this, 0, size)
-}

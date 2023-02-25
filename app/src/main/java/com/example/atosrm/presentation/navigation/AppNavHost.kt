@@ -17,6 +17,7 @@ import com.example.atosrm.presentation.fr.list_fragment.ListFragmentViewModel
 import com.example.atosrm.presentation.fr.profile.ProfileFragment
 import com.example.atosrm.presentation.fr.search.SearchFragment
 import com.example.atosrm.presentation.fr.search.SearchViewModel
+import com.example.atosrm.presentation.fr.show_full_info_person.ShowPersonSRMFragment
 
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -33,12 +34,18 @@ import com.example.atosrm.presentation.fr.search.SearchViewModel
         navController = navController,
         startDestination = LIST_FRAGMENT
     ) {
-        composable(LIST_FRAGMENT) { ListFragment(navController = navController, viewModel = listFragmentViewModel) }
+        composable(LIST_FRAGMENT) { ListFragment(viewModel = listFragmentViewModel, mainViewModel = mainActivityViewModel) }
         composable(SETTINGS_FRAGMENT) {}
-        composable(SEARCH_FRAGMENT) { SearchFragment(application = application, viewModel = searchViewModel) }
+        composable(SEARCH_FRAGMENT) { SearchFragment(application = application, viewModel = searchViewModel, mainViewModel = mainActivityViewModel) }
         composable(ADD_PERSON_FRAGMENT) { AddPersonFragment(navController = navController, viewModel = addPersonViewModel, mainViewModel = mainActivityViewModel) }
         composable(PROFILE_FRAGMENT) { ProfileFragment() }
-        composable(SHOW_PERSONAL_FRAGMENT) {}
+        composable(SHOW_PERSONAL_FRAGMENT) {
+            ShowPersonSRMFragment(
+                person = mainActivityViewModel.personToShow!!,
+                navController = navController,
+                dao = mainActivityViewModel.dao
+            )
+        }
         composable(EDIT_PROFILE_FRAGMENT) {}
         composable(CREATE_POST_FRAGMENT) {}
     }

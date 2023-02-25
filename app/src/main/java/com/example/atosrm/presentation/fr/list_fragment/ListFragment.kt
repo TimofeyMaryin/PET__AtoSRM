@@ -10,14 +10,15 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.atosrm.R
 import com.example.atosrm.data.state.PositionIconHeader
+import com.example.atosrm.presentation.MainActivityViewModel
 import com.example.atosrm.presentation.fr.list_fragment.module.ListOfPersonally
 import com.example.atosrm.presentation.ui.dimenston.localSpacing
 import com.example.atosrm.presentation.ui.elements.Header
 
 
 @Composable fun ListFragment(
-    navController: NavController,
-    viewModel: ListFragmentViewModel
+    viewModel: ListFragmentViewModel,
+    mainViewModel: MainActivityViewModel
 ) {
     val spacing = localSpacing.current
 
@@ -38,11 +39,15 @@ import com.example.atosrm.presentation.ui.elements.Header
             // TODO("Impl navigation to Setting")
         }
 
-        ListOfPersonally(modifier = Modifier.constrainAs(content) {
-            top.linkTo(topBar.bottom)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-        }, viewModel = viewModel)
+        ListOfPersonally(
+            modifier = Modifier.constrainAs(content) {
+                top.linkTo(topBar.bottom)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            },
+            viewModel = viewModel,
+            mainViewModel = mainViewModel
+        )
 
     }
 }
