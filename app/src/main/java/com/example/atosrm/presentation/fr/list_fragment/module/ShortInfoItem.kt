@@ -13,12 +13,16 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import com.example.atosrm.presentation.ui.elements.text.SmallText
 
-@Composable fun ShortInfoItem(value: String) {
+@Composable fun ShortInfoItem(
+    value: String,
+    modifier: Modifier = Modifier
+) {
     Box(
         modifier = Modifier
             .clip(MaterialTheme.shapes.medium)
             .defaultMinSize(minHeight = 15.dp)
-            .background(MaterialTheme.colorScheme.primaryContainer),
+            .background(MaterialTheme.colorScheme.primaryContainer)
+            .then(modifier),
         contentAlignment = Alignment.Center
     ) {
         SmallText(

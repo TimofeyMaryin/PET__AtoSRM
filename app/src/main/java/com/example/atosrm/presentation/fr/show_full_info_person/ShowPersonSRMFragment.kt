@@ -2,10 +2,14 @@ package com.example.atosrm.presentation.fr.show_full_info_person
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
@@ -15,7 +19,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.atosrm.R
@@ -67,11 +74,10 @@ import okhttp3.internal.isSensitiveHeader
     ) {
 
 
-        val (topBar, avatar, fullName, skills, shortInfo, fullInfoRefs, deletePersonRefs) = createRefs()
+        val (topBar, avatar, skills, shortInfo, fullInfoRefs, deletePersonRefs) = createRefs()
 
         Header(
-            title = R.string.person_name,
-            params = person.fullName,
+            title = person.fullName,
             modifier = Modifier.constrainAs(topBar) {
                 top.linkTo(parent.top)
                 start.linkTo(parent.start)
@@ -83,32 +89,38 @@ import okhttp3.internal.isSensitiveHeader
             navController.popBackStack()
         }
 
-        Image(
-            bitmap = person.avatar.decodeBitmap().asImageBitmap(),
-            contentDescription = null,
+        Box(
             modifier = Modifier
-                .size(80.dp)
+                .size(160.dp)
+                .clip(CircleShape)
+                .background(Color.Gray)
                 .constrainAs(avatar) {
-                    top.linkTo(topBar.bottom, margin = spacing.medium)
+                    top.linkTo(topBar.bottom)
                     start.linkTo(parent.start)
-                }
-        )
+                    end.linkTo(
+                        parent.end
+                    )
+                },
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                bitmap = person.avatar.decodeBitmap().asImageBitmap(),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
 
-        LargeText(
-            value = person.fullName,
-            modifier = Modifier.constrainAs(fullName) {
-                top.linkTo(avatar.top)
-                start.linkTo(avatar.end)
-            },
-            color = MaterialTheme.colorScheme.onPrimary
-        )
+        }
+
 
         DefaultText(
             value = person.skills,
             modifier = Modifier.constrainAs(skills) {
-                top.linkTo(fullName.bottom)
-                start.linkTo(avatar.end)
-            }
+                top.linkTo(avatar.bottom, margin = spacing.medium)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            },
+            color = MaterialTheme.colorScheme.onBackground
         )
 
 
@@ -116,56 +128,88 @@ import okhttp3.internal.isSensitiveHeader
             modifier = Modifier
                 .clip(MaterialTheme.shapes.medium)
                 .fillMaxWidth()
+                .defaultMinSize(minHeight = 70.dp)
                 .background(MaterialTheme.colorScheme.tertiaryContainer)
                 .constrainAs(fullInfoRefs) {
-                    top.linkTo(avatar.bottom, margin = spacing.large)
+                    top.linkTo(skills.bottom, margin = spacing.large)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.CenterStart
         ) {
             LargeText(
                 value = person.fullInfo,
-                color = MaterialTheme.colorScheme.onTertiary
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.padding(start = 7.dp)
             )
         }
 
-        LazyRow(
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
+                .clip(MaterialTheme.shapes.medium)
+                .background(Color.Blue)
+                .height(70.dp)
                 .constrainAs(shortInfo) {
-                    top.linkTo(fullName.bottom, margin = spacing.medium)
+                    top.linkTo(fullInfoRefs.bottom, margin = spacing.medium)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
-            verticalAlignment = Alignment.CenterVertically
+            contentAlignment = Alignment.CenterEnd,
         ) {
-            items(person.shortInfo){
-                Box(
-                    modifier = Modifier.padding(horizontal = 15.dp),
-                    contentAlignment = Alignment.Center
-                ){
-                    ShortInfoItem(value = it)
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.tertiaryContainer),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                items(person.shortInfo){
+                    if (it.isNotEmpty()) {
+                        Box(
+                            modifier = Modifier.padding(horizontal = 7.dp),
+                            contentAlignment = Alignment.Center
+                        ){
+                            ShortInfoItem(
+                                value = it,
+                                modifier = Modifier.padding(10.dp)
+                            )
+                        }
+                    }
                 }
             }
+
         }
 
-        IconButton(
-            onClick = {
-                deletePersonTrigger++
-            },
-            modifier = Modifier.constrainAs(deletePersonRefs) {
-                top.linkTo(shortInfo.bottom, margin = spacing.medium)
-                top.linkTo(parent.top)
-                bottom.linkTo(parent.bottom)
-            }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .constrainAs(deletePersonRefs) {
+                    top.linkTo(shortInfo.bottom, margin = spacing.medium)
+                    start.linkTo(parent.start)
+                    bottom.linkTo(parent.bottom)
+                },
+            contentAlignment = Alignment.CenterEnd
         ) {
-            Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.error,
-                modifier = Modifier.size(50.dp)
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .clip(MaterialTheme.shapes.medium)
+                    .clickable { deletePersonTrigger++ }
+            ) {
+                LargeText(
+                    value = R.string.delete_person,
+                    color = MaterialTheme.colorScheme.error,
+                    fontStyle = FontStyle.Italic
+                )
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.error,
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .size(50.dp)
+                )
+
+            }
         }
     }
 

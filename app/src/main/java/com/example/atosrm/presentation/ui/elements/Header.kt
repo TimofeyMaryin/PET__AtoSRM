@@ -25,7 +25,6 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 
 @Composable fun Header(
     title: Int,
-    params: Any = "",
     modifier: Modifier,
     icon: Int,
     position: PositionIconHeader,
@@ -42,7 +41,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
         val (iconRefs, titleRefs) = createRefs()
 
         LargeText(
-            value = stringResource(id = title, params),
+            value = stringResource(id = title),
             modifier = Modifier.constrainAs(titleRefs) {
                 top.linkTo(parent.top)
                 bottom.linkTo(parent.bottom)
@@ -149,5 +148,66 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 
 }
 
+
+
+@Composable fun Header(
+    title: String,
+    modifier: Modifier,
+    icon: Int,
+    position: PositionIconHeader,
+    onAction: () -> Unit,
+) {
+    val currentWidth = localWidth.current
+
+    ConstraintLayout(
+        modifier = Modifier
+            .fillMaxWidth(currentWidth.large)
+            .padding(vertical = localSpacing.current.small)
+            .then(modifier)
+    ) {
+        val (iconRefs, titleRefs) = createRefs()
+
+        LargeText(
+            value = title,
+            modifier = Modifier.constrainAs(titleRefs) {
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+                end.linkTo(parent.end)
+                start.linkTo(parent.start)
+            },
+            color = MaterialTheme.colorScheme.onBackground,
+            fontWeight = FontWeight.Bold
+        )
+        IconButton(
+            onClick = { onAction() },
+            modifier = Modifier.constrainAs(iconRefs){
+                when(position) {
+                    PositionIconHeader.START -> {
+                        start.linkTo(parent.start)
+                        bottom.linkTo(parent.bottom)
+                        top.linkTo(parent.top)
+                    }
+                    PositionIconHeader.END -> {
+                        end.linkTo(parent.end)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                    }
+                    else -> {}
+                }
+            }
+        ) {
+            if (position != PositionIconHeader.NOTHING) {
+                Icon(
+                    painter = painterResource(id = icon),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onBackground
+                )
+            }
+        }
+
+
+    }
+
+}
 
 
