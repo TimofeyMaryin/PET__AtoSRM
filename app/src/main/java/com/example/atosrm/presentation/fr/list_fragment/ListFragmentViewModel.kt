@@ -16,7 +16,7 @@ import javax.inject.Inject
 class ListFragmentViewModel(
     private val dao: PersonSRMDao
 ): ViewModel() {
-    suspend fun getAllUser(): MutableList<PersonSRM> = dao.getAllUser()
+
 
 
 

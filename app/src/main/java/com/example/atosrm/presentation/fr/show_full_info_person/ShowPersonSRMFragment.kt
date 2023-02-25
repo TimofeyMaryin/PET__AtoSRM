@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.example.atosrm.data.person_srm.PersonSRMDao
 import com.example.atosrm.presentation.MainActivityViewModel
 import com.example.atosrm.presentation.fr.list_fragment.module.ShortInfoItem
+import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
 import com.example.atosrm.presentation.ui.dimenston.localSpacing
 import com.example.atosrm.presentation.ui.elements.text.DefaultText
 import com.example.atosrm.presentation.ui.elements.text.LargeText
@@ -85,6 +86,7 @@ import okhttp3.internal.isSensitiveHeader
             position = PositionIconHeader.START
         ) {
             mainViewModel.navController.popBackStack()
+            mainViewModel.currentNavBackState = LIST_FRAGMENT
         }
 
         Box(

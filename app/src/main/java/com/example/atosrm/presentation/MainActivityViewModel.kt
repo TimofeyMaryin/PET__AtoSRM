@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.atosrm.data.person_srm.PersonSRM
 import com.example.atosrm.data.person_srm.PersonSRMDao
@@ -20,6 +21,7 @@ import com.example.atosrm.presentation.navigation.ADD_PERSON_FRAGMENT
 import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
 import com.example.atosrm.presentation.navigation.SHOW_PERSONAL_FRAGMENT
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
@@ -36,6 +38,10 @@ class MainActivityViewModel (
 
     var personToShow by mutableStateOf<PersonSRM?>(null)
         private set
+
+
+    var usersList by mutableStateOf(listOf<PersonSRM>())
+
 
     suspend fun fabButtonAction(context: Context){
         if (!isOpenNonMainMenuEl) {
@@ -70,6 +76,8 @@ class MainActivityViewModel (
             currentNavBackState = LIST_FRAGMENT
             isOpenNonMainMenuEl = !isOpenNonMainMenuEl
             Log.e("_fab_action_when_create_person", "count peroson: ${dao.getAllUser().size}", )
+
+            usersList = getAllUser()
         }
     }
 
@@ -87,6 +95,8 @@ class MainActivityViewModel (
         return data.toByteArray()
     }
 
+    suspend fun getAllUser(): MutableList<PersonSRM> = dao.getAllUser()
+
 
     fun showPersonFullInfo(personSRM: PersonSRM) {
         currentNavBackState = SHOW_PERSONAL_FRAGMENT
@@ -102,5 +112,10 @@ class MainActivityViewModel (
     }
 
 
+    init {
+        viewModelScope.launch {
+            usersList = getAllUser()
+        }
+    }
 
 }
