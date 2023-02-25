@@ -1,21 +1,16 @@
 package com.example.atosrm.presentation.fr.show_full_info_person
 
 import android.hardware.lights.Light
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -129,7 +124,7 @@ import okhttp3.internal.isSensitiveHeader
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable {
-                    viewModel.typeEditInfo = "skills"
+                    viewModel.typeEditInfo.type = "skills"
                     navController.navigate(EDIT_PERSON_INFO)
                 }
                 .constrainAs(skills) {
@@ -231,23 +226,35 @@ import okhttp3.internal.isSensitiveHeader
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .clip(MaterialTheme.shapes.medium)
-                    .clickable { deletePersonTrigger++ }
+
             ) {
-                LargeText(
-                    value = R.string.delete_person,
-                    color = MaterialTheme.colorScheme.error,
-                    fontStyle = FontStyle.Italic
-                )
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.error,
-                    modifier = Modifier
-                        .padding(10.dp)
-                        .size(50.dp)
-                )
+                Button(
+                    onClick = { /*TODO*/ },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    ),
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimaryContainer),
+                    shape = MaterialTheme.shapes.medium,
+                ) {
+                    LargeText(value = "Edit", color = MaterialTheme.colorScheme.onPrimaryContainer)
+                }
+
+                Spacer(modifier = Modifier.width(25.dp))
+
+                Button(
+                    onClick = { deletePersonTrigger++ },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Transparent,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    ),
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.errorContainer),
+                    shape = MaterialTheme.shapes.medium,
+                ) {
+                    LargeText(value = R.string.delete_person, color = MaterialTheme.colorScheme.errorContainer)
+                }
+
+
 
             }
         }

@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.atosrm.data.person_srm.PersonSRM
+import com.example.atosrm.domain.model.TypeEditInfo
 import com.example.atosrm.presentation.MainActivityViewModel
 
 class ShowPersonInfoViewModel(
@@ -13,7 +14,7 @@ class ShowPersonInfoViewModel(
     val navController: NavController
 ): ViewModel() {
     // Отвечяает за то, какую инфу надо изменять
-    var typeEditInfo by mutableStateOf("")
+    val typeEditInfo by lazy { TypeEditInfo("") }
 
     var valueEditInfo by mutableStateOf(getEditInfo())
     private val oldPerson by lazy { mainViewModel.personToShow!! }
@@ -32,7 +33,7 @@ class ShowPersonInfoViewModel(
 
 
     private fun getEditInfo(): String {
-        return when(typeEditInfo) {
+        return when(typeEditInfo.type) {
             "skills" -> { mainViewModel.personToShow!!.skills }
             "about" -> { mainViewModel.personToShow!!.fullInfo }
             "avatar" -> { "Avatar" }
