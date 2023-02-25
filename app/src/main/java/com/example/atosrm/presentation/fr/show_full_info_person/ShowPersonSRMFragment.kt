@@ -174,8 +174,10 @@ import okhttp3.internal.isSensitiveHeader
     LaunchedEffect(
         key1 = deletePersonTrigger,
         block = {
-            dao.deletePerson(person = person)
-            navController.popBackStack()
+            if(deletePersonTrigger > 0 ) {
+                dao.deletePerson(person = person)
+                navController.popBackStack()
+            }
         }
     )
 
