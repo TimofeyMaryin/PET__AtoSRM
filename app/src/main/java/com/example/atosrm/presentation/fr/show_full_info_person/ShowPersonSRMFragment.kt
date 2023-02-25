@@ -33,6 +33,7 @@ import com.example.atosrm.presentation.ui.dimenston.localWidth
 import com.example.atosrm.presentation.ui.elements.Header
 import androidx.compose.ui.unit.dp
 import com.example.atosrm.data.person_srm.PersonSRMDao
+import com.example.atosrm.presentation.MainActivityViewModel
 import com.example.atosrm.presentation.fr.list_fragment.module.ShortInfoItem
 import com.example.atosrm.presentation.ui.dimenston.localSpacing
 import com.example.atosrm.presentation.ui.elements.text.DefaultText
@@ -42,8 +43,7 @@ import okhttp3.internal.isSensitiveHeader
 
 @Composable fun ShowPersonSRMFragment(
     person: PersonSRM,
-    navController: NavController,
-    dao: PersonSRMDao
+    mainViewModel: MainActivityViewModel
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -52,8 +52,7 @@ import okhttp3.internal.isSensitiveHeader
         item {
             PersonInfo(
                 person = person,
-                navController = navController,
-                dao = dao
+                mainViewModel = mainViewModel
             )
         }
     }
@@ -63,8 +62,7 @@ import okhttp3.internal.isSensitiveHeader
 
 @Composable private fun PersonInfo(
     person: PersonSRM,
-    navController: NavController,
-    dao: PersonSRMDao
+    mainViewModel: MainActivityViewModel
 ){
     val spacing = localSpacing.current
     var deletePersonTrigger by remember { mutableStateOf(0) }
@@ -86,7 +84,7 @@ import okhttp3.internal.isSensitiveHeader
             icon = R.drawable.arrow_back_ic,
             position = PositionIconHeader.START
         ) {
-            navController.popBackStack()
+            mainViewModel.navController.popBackStack()
         }
 
         Box(
@@ -219,8 +217,7 @@ import okhttp3.internal.isSensitiveHeader
         key1 = deletePersonTrigger,
         block = {
             if(deletePersonTrigger > 0 ) {
-                dao.deletePerson(person = person)
-                navController.popBackStack()
+                mainViewModel.deletePerson(personSRM = person)
             }
         }
     )

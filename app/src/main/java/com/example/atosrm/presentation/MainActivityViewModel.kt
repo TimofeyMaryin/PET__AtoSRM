@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 
 class MainActivityViewModel (
-    private val navController: NavController,
+    val navController: NavController,
     private val application: Application,
     val dao: PersonSRMDao,
     private val addPersonViewModel: AddPersonViewModel,
@@ -92,6 +92,13 @@ class MainActivityViewModel (
         currentNavBackState = SHOW_PERSONAL_FRAGMENT
         personToShow = personSRM
         navController.navigate(SHOW_PERSONAL_FRAGMENT)
+    }
+
+
+    suspend fun deletePerson(personSRM: PersonSRM){
+        dao.deletePerson(personSRM)
+        navController.popBackStack()
+        currentNavBackState = LIST_FRAGMENT
     }
 
 

@@ -42,8 +42,7 @@ import com.example.atosrm.presentation.fr.show_full_info_person.ShowPersonSRMFra
         composable(SHOW_PERSONAL_FRAGMENT) {
             ShowPersonSRMFragment(
                 person = mainActivityViewModel.personToShow!!,
-                navController = navController,
-                dao = mainActivityViewModel.dao
+                mainViewModel = mainActivityViewModel
             )
         }
         composable(EDIT_PROFILE_FRAGMENT) {}
