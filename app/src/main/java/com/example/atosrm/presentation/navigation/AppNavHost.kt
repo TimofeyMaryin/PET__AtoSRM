@@ -27,7 +27,6 @@ import com.example.atosrm.presentation.fr.show_full_info_person.ShowPersonSRMFra
     navController: NavHostController,
     mainActivityViewModel: MainActivityViewModel,
     addPersonViewModel: AddPersonViewModel,
-    listFragmentViewModel: ListFragmentViewModel,
     application: Application,
     searchViewModel: SearchViewModel,
     showPersonInfoViewModel: ShowPersonInfoViewModel
@@ -37,7 +36,7 @@ import com.example.atosrm.presentation.fr.show_full_info_person.ShowPersonSRMFra
         navController = navController,
         startDestination = LIST_FRAGMENT
     ) {
-        composable(LIST_FRAGMENT) { ListFragment(viewModel = listFragmentViewModel, mainViewModel = mainActivityViewModel) }
+        composable(LIST_FRAGMENT) { ListFragment(mainViewModel = mainActivityViewModel) }
         composable(SETTINGS_FRAGMENT) {}
         composable(SEARCH_FRAGMENT) { SearchFragment(application = application, viewModel = searchViewModel, mainViewModel = mainActivityViewModel) }
         composable(ADD_PERSON_FRAGMENT) { AddPersonFragment(navController = navController, viewModel = addPersonViewModel, mainViewModel = mainActivityViewModel) }

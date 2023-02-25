@@ -10,26 +10,9 @@ import com.example.atosrm.presentation.fr.list_fragment.ListFragmentViewModel
 
 @Composable fun ListOfPersonally(
     modifier: Modifier,
-    viewModel: ListFragmentViewModel,
     mainViewModel: MainActivityViewModel
 ) {
-//    var currentUsers by remember { mutableStateOf(listOf<PersonSRM>()) }
 
-
-//    if (currentUsers.isNotEmpty()){
-//        ThereIsPerson(
-//            modifier = modifier,
-//            value = currentUsers,
-//            viewModel = mainViewModel
-//        )
-//    } else {
-//        ThereIsNotPerson()
-//    }
-//
-//    LaunchedEffect(key1 = Unit, block = {
-//        currentUsers = viewModel.getAllUser()
-//
-//    })
 
     if(mainViewModel.usersList.isNotEmpty()) {
         ThereIsPerson(modifier = modifier, value = mainViewModel.usersList, viewModel = mainViewModel)

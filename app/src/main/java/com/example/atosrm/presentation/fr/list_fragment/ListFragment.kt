@@ -17,7 +17,6 @@ import com.example.atosrm.presentation.ui.elements.Header
 
 
 @Composable fun ListFragment(
-    viewModel: ListFragmentViewModel,
     mainViewModel: MainActivityViewModel
 ) {
     val spacing = localSpacing.current
@@ -45,7 +44,6 @@ import com.example.atosrm.presentation.ui.elements.Header
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             },
-            viewModel = viewModel,
             mainViewModel = mainViewModel
         )
 

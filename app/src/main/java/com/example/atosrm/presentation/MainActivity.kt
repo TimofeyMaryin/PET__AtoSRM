@@ -91,7 +91,6 @@ class MainActivity : ComponentActivity() {
                     navController = navController,
                     mainActivityViewModel = mainActivityViewModel,
                     addPersonViewModel = addPersonViewModel,
-                    listFragmentViewModel = listFragmentViewModel,
                     application = application,
                     searchViewModel = searchViewModel,
                     showPersonInfoViewModel = showPersonViewModel
