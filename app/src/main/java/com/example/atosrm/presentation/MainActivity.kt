@@ -20,6 +20,8 @@ import com.example.atosrm.presentation.fr.add_person_srm.AddPersonViewModel
 import com.example.atosrm.presentation.fr.list_fragment.ListFragmentViewModel
 import com.example.atosrm.presentation.fr.list_fragment.ListViewModelFactory
 import com.example.atosrm.presentation.fr.search.SearchViewModel
+import com.example.atosrm.presentation.fr.show_full_info_person.ShowPersonInfoViewModel
+import com.example.atosrm.presentation.fr.show_full_info_person.ShowPersonViewModelFactory
 import com.example.atosrm.presentation.navigation.ADD_PERSON_FRAGMENT
 import com.example.atosrm.presentation.navigation.AppNavHost
 import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
@@ -61,6 +63,12 @@ class MainActivity : ComponentActivity() {
             addPersonViewModel = addPersonViewModel
         )
     )
+    val showPersonViewModel: ShowPersonInfoViewModel = viewModel(
+        factory = ShowPersonViewModelFactory(
+            navController = navController,
+            mainViewModel = mainActivityViewModel
+        )
+    )
     var currentFABIcon by remember {
         mutableStateOf(R.drawable.edit_ic)
     }
@@ -85,7 +93,8 @@ class MainActivity : ComponentActivity() {
                     addPersonViewModel = addPersonViewModel,
                     listFragmentViewModel = listFragmentViewModel,
                     application = application,
-                    searchViewModel = searchViewModel
+                    searchViewModel = searchViewModel,
+                    showPersonInfoViewModel = showPersonViewModel
                 )
             }
         )

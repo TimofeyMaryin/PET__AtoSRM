@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import com.example.atosrm.data.person_srm.PersonSRMDao
 import com.example.atosrm.presentation.MainActivityViewModel
 import com.example.atosrm.presentation.fr.list_fragment.module.ShortInfoItem
+import com.example.atosrm.presentation.navigation.EDIT_PERSON_INFO
 import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
 import com.example.atosrm.presentation.ui.dimenston.localSpacing
 import com.example.atosrm.presentation.ui.elements.text.DefaultText
@@ -46,8 +47,8 @@ import okhttp3.internal.isSensitiveHeader
 
 
 @Composable fun ShowPersonSRMFragment(
-    person: PersonSRM,
-    mainViewModel: MainActivityViewModel
+    navController: NavController,
+    viewModel: ShowPersonInfoViewModel
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -55,8 +56,9 @@ import okhttp3.internal.isSensitiveHeader
     ){
         item {
             PersonInfo(
-                person = person,
-                mainViewModel = mainViewModel
+                person = viewModel.mainViewModel.personToShow!!,
+                viewModel = viewModel,
+                navController = navController
             )
         }
         item {
@@ -73,7 +75,8 @@ import okhttp3.internal.isSensitiveHeader
 
 @Composable private fun PersonInfo(
     person: PersonSRM,
-    mainViewModel: MainActivityViewModel
+    viewModel: ShowPersonInfoViewModel,
+    navController: NavController
 ){
     val spacing = localSpacing.current
     var deletePersonTrigger by remember { mutableStateOf(0) }
@@ -95,8 +98,8 @@ import okhttp3.internal.isSensitiveHeader
             icon = R.drawable.arrow_back_ic,
             position = PositionIconHeader.START
         ) {
-            mainViewModel.navController.popBackStack()
-            mainViewModel.currentNavBackState = LIST_FRAGMENT
+            viewModel.mainViewModel.navController.popBackStack()
+            viewModel.mainViewModel.currentNavBackState = LIST_FRAGMENT
         }
 
         Box(
@@ -125,6 +128,10 @@ import okhttp3.internal.isSensitiveHeader
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .clickable {
+                    viewModel.typeEditInfo = "skills"
+                    navController.navigate(EDIT_PERSON_INFO)
+                }
                 .constrainAs(skills) {
                     top.linkTo(avatar.bottom, margin = spacing.medium)
                     start.linkTo(parent.start)
@@ -252,7 +259,7 @@ import okhttp3.internal.isSensitiveHeader
         key1 = deletePersonTrigger,
         block = {
             if(deletePersonTrigger > 0 ) {
-                mainViewModel.deletePerson(personSRM = person)
+                viewModel.mainViewModel.deletePerson(personSRM = person)
             }
         }
     )
