@@ -1,5 +1,6 @@
 package com.example.atosrm.presentation.fr.show_full_info_person
 
+import android.hardware.lights.Light
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -22,7 +23,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.atosrm.R
@@ -54,6 +57,13 @@ import okhttp3.internal.isSensitiveHeader
             PersonInfo(
                 person = person,
                 mainViewModel = mainViewModel
+            )
+        }
+        item {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(120.dp)
             )
         }
     }
@@ -112,16 +122,27 @@ import okhttp3.internal.isSensitiveHeader
 
         }
 
-
-        DefaultText(
-            value = person.skills,
-            modifier = Modifier.constrainAs(skills) {
-                top.linkTo(avatar.bottom, margin = spacing.medium)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            },
-            color = MaterialTheme.colorScheme.onBackground
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .constrainAs(skills) {
+                    top.linkTo(avatar.bottom, margin = spacing.medium)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                },
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            DefaultText(
+                value = R.string.skills_description,
+                color = MaterialTheme.colorScheme.outline
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            DefaultText(
+                value = person.skills,
+                color = MaterialTheme.colorScheme.onBackground,
+                fontWeight = FontWeight.Bold
+            )
+        }
 
 
         Box(
@@ -137,11 +158,23 @@ import okhttp3.internal.isSensitiveHeader
                 },
             contentAlignment = Alignment.CenterStart
         ) {
-            LargeText(
-                value = person.fullInfo,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(start = 7.dp)
-            )
+            Column(modifier = Modifier.fillMaxWidth(localWidth.current.extraLarge)) {
+                LargeText(
+                    value = stringResource(
+                        id = R.string.about_person_description,
+                        person.fullName
+                    ),
+                    fontStyle = FontStyle.Italic,
+                    modifier = Modifier.padding(start = 7.dp),
+                    color = MaterialTheme.colorScheme.inversePrimary,
+                    fontWeight = FontWeight.Light
+                )
+                LargeText(
+                    value = person.fullInfo,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.padding(start = 7.dp)
+                )
+            }
         }
 
         Box(
