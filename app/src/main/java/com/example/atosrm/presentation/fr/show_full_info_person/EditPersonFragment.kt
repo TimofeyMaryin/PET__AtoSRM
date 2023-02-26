@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -26,19 +27,27 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
     viewModel: ShowPersonInfoViewModel
 ) {
 
+    LazyColumn(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally){
 
-    if (
-        viewModel.personName != null &&
-        viewModel.personFullInfo != null &&
-        viewModel.personSkills != null &&
-        viewModel.personAvatar != null
-    ) {
-       LoadedContent(viewModel = viewModel)
-    } else {
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Red), contentAlignment = Alignment.Center) {
-            LargeText(value = "Loading...")
+        item {
+            if (
+                viewModel.personName != null &&
+                viewModel.personFullInfo != null &&
+                viewModel.personSkills != null &&
+                viewModel.personAvatar != null
+            ) {
+                LoadedContent(viewModel = viewModel)
+            } else {
+                Box(modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Red), contentAlignment = Alignment.Center) {
+                    LargeText(value = "Loading...")
+                }
+            }
+
+        }
+        item {
+            Box(modifier = Modifier.fillMaxWidth().height(150.dp))
         }
     }
 
@@ -64,21 +73,29 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
     onChangeValue: (String) -> Unit,
     icon: Int,
 ) {
-    Row(
-        modifier = Modifier.fillMaxWidth(localWidth.current.large),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 12.dp),
+        contentAlignment = Alignment.Center
     ) {
-        Icon(
-            painter = painterResource(id = icon),
-            contentDescription = null,
-            modifier = Modifier.weight(1f)
-        )
-        AppTextField(
-            value = value,
-            modifier = Modifier.weight(3f),
-            onChangeValue = {onChangeValue(it)}
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(localWidth.current.large),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Icon(
+                painter = painterResource(id = icon),
+                contentDescription = null,
+                modifier = Modifier.weight(1f)
+            )
+            AppTextField(
+                value = value,
+                modifier = Modifier.weight(3f),
+                onChangeValue = {onChangeValue(it)}
+            )
+        }
+
     }
 }
 
@@ -86,62 +103,53 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 @Composable private fun LoadedContent(
     viewModel: ShowPersonInfoViewModel
 ){
-    LazyColumn(
+    Column(
         modifier = Modifier
+            .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary),
+            .background(MaterialTheme.colorScheme.onSecondary),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        item {
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .height(130.dp)
-                .background(MaterialTheme.colorScheme.background))
-        }
-        item {
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .height(130.dp)
+            .background(MaterialTheme.colorScheme.background)
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ){
             Box(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .clip(CircleShape)
+                    .size(150.dp),
                 contentAlignment = Alignment.Center
             ){
-                Box(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .size(100.dp),
-                    contentAlignment = Alignment.Center
-                ){
-                    Image(
-                        bitmap = viewModel.personAvatar!!.asImageBitmap(),
-                        contentDescription = null,
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.Crop
-                    )
-                }
+                Image(
+                    bitmap = viewModel.personAvatar!!.asImageBitmap(),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
             }
         }
 
-        item {
-            EditableElement(
-                value = viewModel.personName!!,
-                onChangeValue = { viewModel.personName = it },
-                icon = R.drawable.person_ic
-            )
-        }
+        EditableElement(
+            value = viewModel.personName!!,
+            onChangeValue = { viewModel.personName = it },
+            icon = R.drawable.person_ic
+        )
+        EditableElement(
+            value = viewModel.personSkills!!,
+            onChangeValue = { viewModel.personSkills = it },
+            icon = R.drawable.skills_ic
+        )
+        EditableElement(
+            value = viewModel.personFullInfo!!,
+            onChangeValue = { viewModel.personFullInfo },
+            icon = R.drawable.info_ic
+        )
 
-        item {
-            EditableElement(
-                value = viewModel.personSkills!!,
-                onChangeValue = { viewModel.personSkills = it },
-                icon = R.drawable.skills_ic
-            )
-        }
-
-        item {
-            EditableElement(
-                value = viewModel.personFullInfo!!,
-                onChangeValue = { viewModel.personFullInfo },
-                icon = R.drawable.info_ic
-            )
-        }
     }
 }
