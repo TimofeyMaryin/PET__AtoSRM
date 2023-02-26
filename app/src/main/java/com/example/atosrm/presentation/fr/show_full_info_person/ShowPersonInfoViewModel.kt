@@ -5,43 +5,26 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.example.atosrm.data.person_srm.PersonSRM
-import com.example.atosrm.domain.model.TypeEditInfo
+import com.example.atosrm.domain.utils.decodeBitmap
 import com.example.atosrm.presentation.MainActivityViewModel
 
 class ShowPersonInfoViewModel(
     val mainViewModel: MainActivityViewModel,
     val navController: NavController
 ): ViewModel() {
-    // Отвечяает за то, какую инфу надо изменять
-    val typeEditInfo by lazy { TypeEditInfo("") }
 
-    var valueEditInfo by mutableStateOf(getEditInfo())
-    private val oldPerson by lazy { mainViewModel.personToShow!! }
 
-    suspend fun editInfo() {
-        mainViewModel.dao.insertPerson(
-            person = mainViewModel.personToShow!!.copy(
-                fullInfo = oldPerson.fullInfo,
-                skills = oldPerson.skills,
-                shortInfo = oldPerson.shortInfo,
-                fullName = oldPerson.fullName,
-                avatar = oldPerson.avatar
-            )
-        )
+
+    var personName by mutableStateOf(mainViewModel.personToShow?.fullInfo)
+    var personSkills by mutableStateOf(mainViewModel.personToShow?.skills)
+    var personFullInfo by mutableStateOf(mainViewModel.personToShow?.fullInfo )
+    var personAvatar by mutableStateOf(mainViewModel.personToShow?.avatar?.decodeBitmap())
+
+
+    fun initPerson() {
+        personName = mainViewModel.personToShow!!.fullName
+        personSkills = mainViewModel.personToShow!!.skills
+        personFullInfo = mainViewModel.personToShow!!.fullInfo
+        personAvatar = mainViewModel.personToShow!!.avatar.decodeBitmap()
     }
-
-
-    private fun getEditInfo(): String {
-        return when(typeEditInfo.type) {
-            "skills" -> { mainViewModel.personToShow!!.skills }
-            "about" -> { mainViewModel.personToShow!!.fullInfo }
-            "avatar" -> { "Avatar" }
-            "tags" -> { "Tags" }
-            else -> { "Nuh" }
-        }
-    }
-
-
-
 }

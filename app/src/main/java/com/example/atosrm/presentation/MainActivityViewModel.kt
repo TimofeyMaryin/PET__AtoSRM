@@ -37,7 +37,6 @@ class MainActivityViewModel (
     var currentNavBackState by mutableStateOf(LIST_FRAGMENT)
 
     var personToShow by mutableStateOf<PersonSRM?>(null)
-        private set
 
 
     var usersList by mutableStateOf(listOf<PersonSRM>())

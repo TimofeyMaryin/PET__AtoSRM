@@ -54,7 +54,6 @@ import okhttp3.internal.isSensitiveHeader
             PersonInfo(
                 person = viewModel.mainViewModel.personToShow!!,
                 viewModel = viewModel,
-                navController = navController
             )
         }
         item {
@@ -72,7 +71,6 @@ import okhttp3.internal.isSensitiveHeader
 @Composable private fun PersonInfo(
     person: PersonSRM,
     viewModel: ShowPersonInfoViewModel,
-    navController: NavController
 ){
     val spacing = localSpacing.current
     var deletePersonTrigger by remember { mutableStateOf(0) }
@@ -124,10 +122,6 @@ import okhttp3.internal.isSensitiveHeader
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable {
-                    viewModel.typeEditInfo.type = "skills"
-                    navController.navigate(EDIT_PERSON_INFO)
-                }
                 .constrainAs(skills) {
                     top.linkTo(avatar.bottom, margin = spacing.medium)
                     start.linkTo(parent.start)
@@ -236,7 +230,10 @@ import okhttp3.internal.isSensitiveHeader
 
             ) {
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        viewModel.mainViewModel.personToShow = person
+                        viewModel.mainViewModel.navController.navigate(EDIT_PERSON_INFO)
+                    },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primaryContainer,
                         contentColor = MaterialTheme.colorScheme.onPrimaryContainer
