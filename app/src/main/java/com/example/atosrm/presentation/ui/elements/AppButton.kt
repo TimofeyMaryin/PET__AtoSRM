@@ -18,10 +18,11 @@ import androidx.compose.ui.unit.dp
     value: String,
     modifier: Modifier = Modifier,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        containerColor = MaterialTheme.colorScheme.onBackground
+        containerColor = MaterialTheme.colorScheme.onBackground,
     ),
     enable: Boolean = true,
     borderColor: Color = Color.Transparent,
+    textColor: Color = MaterialTheme.colorScheme.primary,
     onClick: () -> Unit,
 ) =
     Button(
@@ -32,12 +33,7 @@ import androidx.compose.ui.unit.dp
         border = BorderStroke(1.dp, color = borderColor),
         enabled = enable,
     ) {
-        LargeText(value = value, color = MaterialTheme.colorScheme.primary)
+        LargeText(value = value, color = textColor)
     }
 
 
-@Composable
-@Preview(widthDp = 200)
-fun PreviewButton() {
-    AppButton(value = "Test") {}
-}
