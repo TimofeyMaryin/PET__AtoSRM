@@ -16,6 +16,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.atosrm.R
+import com.example.atosrm.domain.utils.decodeBitmap
 import com.example.atosrm.presentation.fr.show_full_info_person.ShowPersonInfoViewModel
 import com.example.atosrm.presentation.ui.elements.AppButton
 import com.example.atosrm.presentation.ui.elements.text.LargeText
@@ -69,7 +70,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
         ) {
 
             Image(
-                bitmap = viewModel.personAvatar!!.asImageBitmap(),
+                bitmap = viewModel.personAvatar!!.decodeBitmap().asImageBitmap(),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize(),

@@ -20,4 +20,7 @@ interface PersonSRMDao {
     @Delete
     suspend fun deletePerson(person: PersonSRM)
 
+    @Update
+    suspend fun updatePerson(person: PersonSRM)
+
 }
