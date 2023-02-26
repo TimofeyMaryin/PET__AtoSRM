@@ -41,4 +41,6 @@
     <string name="skills_description">Skills </string>
     <string name="about_person_description">About %s</string>
 
+    <string name="edit_person_fragment_edit">Edit</string>
+
 </resources>

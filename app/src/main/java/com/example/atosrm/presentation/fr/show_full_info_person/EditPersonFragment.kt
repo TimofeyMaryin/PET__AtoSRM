@@ -1,7 +1,9 @@
 package com.example.atosrm.presentation.fr.show_full_info_person
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
@@ -19,6 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.example.atosrm.R
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.atosrm.presentation.ui.dimenston.localWidth
 import com.example.atosrm.presentation.ui.elements.text.LargeText
 
@@ -47,7 +50,9 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 
         }
         item {
-            Box(modifier = Modifier.fillMaxWidth().height(150.dp))
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .height(150.dp))
         }
     }
 
@@ -81,7 +86,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(localWidth.current.large),
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.Top,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Icon(
@@ -103,53 +108,86 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 @Composable private fun LoadedContent(
     viewModel: ShowPersonInfoViewModel
 ){
-    Column(
+
+    ConstraintLayout(
         modifier = Modifier
-            .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
+            .clip(MaterialTheme.shapes.large)
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onSecondary),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .background(MaterialTheme.colorScheme.onSecondary)
     ) {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(130.dp)
-            .background(MaterialTheme.colorScheme.background)
-        )
+        val (header, avatar, personValue) = createRefs()
+
         Box(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .height(130.dp)
+                .background(MaterialTheme.colorScheme.background)
+                .constrainAs(header) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                },
             contentAlignment = Alignment.Center
-        ){
-            Box(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .size(150.dp),
-                contentAlignment = Alignment.Center
-            ){
-                Image(
-                    bitmap = viewModel.personAvatar!!.asImageBitmap(),
-                    contentDescription = null,
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
+        ) {
+            LargeText(
+                value = R.string.edit_person_fragment_edit,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+        }
+        Box(
+            modifier = Modifier
+                .border(
+                    BorderStroke(
+                        6.dp,
+                        MaterialTheme.colorScheme.onSecondary
+                    ),
+                    CircleShape
                 )
-            }
+                .clip(CircleShape)
+                .size(150.dp)
+                .constrainAs(avatar) {
+                    top.linkTo(header.bottom, margin = (-75).dp)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                },
+            contentAlignment = Alignment.Center,
+        ) {
+
+            Image(
+                bitmap = viewModel.personAvatar!!.asImageBitmap(),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
         }
 
-        EditableElement(
-            value = viewModel.personName!!,
-            onChangeValue = { viewModel.personName = it },
-            icon = R.drawable.person_ic
-        )
-        EditableElement(
-            value = viewModel.personSkills!!,
-            onChangeValue = { viewModel.personSkills = it },
-            icon = R.drawable.skills_ic
-        )
-        EditableElement(
-            value = viewModel.personFullInfo!!,
-            onChangeValue = { viewModel.personFullInfo },
-            icon = R.drawable.info_ic
-        )
+        Column(
+            modifier = Modifier.constrainAs(personValue) {
+                top.linkTo(avatar.bottom, margin = 20.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            },
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
+            EditableElement(
+                value = viewModel.personName!!,
+                onChangeValue = { viewModel.personName = it },
+                icon = R.drawable.person_ic
+            )
+            EditableElement(
+                value = viewModel.personSkills!!,
+                onChangeValue = { viewModel.personSkills = it },
+                icon = R.drawable.skills_ic
+            )
+            EditableElement(
+                value = viewModel.personFullInfo!!,
+                onChangeValue = { viewModel.personFullInfo },
+                icon = R.drawable.info_ic
+            )
+
+        }
     }
+
 }
