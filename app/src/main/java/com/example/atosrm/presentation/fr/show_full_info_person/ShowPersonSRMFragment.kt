@@ -160,21 +160,21 @@ import okhttp3.internal.isSensitiveHeader
                 },
             contentAlignment = Alignment.CenterStart
         ) {
-            Column(modifier = Modifier.fillMaxWidth(localWidth.current.extraLarge)) {
+            Column(modifier = Modifier.fillMaxWidth(localWidth.current.extraLarge).padding(vertical = 20.dp)) {
                 LargeText(
                     value = stringResource(
                         id = R.string.about_person_description,
                         person.fullName
                     ),
-                    fontStyle = FontStyle.Italic,
                     modifier = Modifier.padding(start = 7.dp),
-                    color = MaterialTheme.colorScheme.inversePrimary,
+                    color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Light
                 )
-                LargeText(
+                DefaultText(
                     value = person.fullInfo,
                     color = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier.padding(start = 7.dp)
+                    modifier = Modifier.padding(start = 7.dp),
+                    fontWeight = FontWeight.Light
                 )
             }
         }
