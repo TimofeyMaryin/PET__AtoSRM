@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
@@ -160,7 +161,9 @@ import okhttp3.internal.isSensitiveHeader
                 },
             contentAlignment = Alignment.CenterStart
         ) {
-            Column(modifier = Modifier.fillMaxWidth(localWidth.current.extraLarge).padding(vertical = 20.dp)) {
+            Column(modifier = Modifier
+                .fillMaxWidth(localWidth.current.extraLarge)
+                .padding(vertical = 20.dp)) {
                 LargeText(
                     value = stringResource(
                         id = R.string.about_person_description,
@@ -170,12 +173,16 @@ import okhttp3.internal.isSensitiveHeader
                     color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Light
                 )
-                DefaultText(
-                    value = person.fullInfo,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier.padding(start = 7.dp),
-                    fontWeight = FontWeight.Light
-                )
+                SelectionContainer {
+
+                    DefaultText(
+                        value = person.fullInfo,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        modifier = Modifier.padding(start = 7.dp),
+                        fontWeight = FontWeight.Light
+                    )
+
+                }
             }
         }
 
