@@ -10,12 +10,9 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 
 
 @Composable fun ProfileFragment() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+    ConstraintLayout(
+        modifier = Modifier.fillMaxSize()
     ) {
-        LargeText(
-            value = "Profile"
-        )
+
     }
 }

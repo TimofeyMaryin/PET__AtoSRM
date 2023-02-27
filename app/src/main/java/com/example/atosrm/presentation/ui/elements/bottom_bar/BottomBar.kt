@@ -60,18 +60,7 @@ import com.example.atosrm.presentation.ui.dimenston.localSpacing
                 navController.navigate(SEARCH_FRAGMENT)
             }
         }
-
-        BottomBarItem(
-            isActive = viewModel.currentNavBackState == PROFILE_FRAGMENT,
-            icon = R.drawable.accaunt_ic,
-            nameOfPage = R.string.menu_profile_name
-        ) {
-            if (viewModel.currentNavBackState != PROFILE_FRAGMENT || viewModel.isOpenNonMainMenuEl){
-                viewModel.isOpenNonMainMenuEl = false
-                viewModel.currentNavBackState = PROFILE_FRAGMENT
-                navController.navigate(PROFILE_FRAGMENT)
-            }
-        }
+        
     }
 
 }
