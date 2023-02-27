@@ -1,9 +1,8 @@
 package com.example.atosrm.presentation.fr.show_full_info_person.module
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
@@ -13,10 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.example.atosrm.R
 import com.example.atosrm.domain.utils.decodeBitmap
+import com.example.atosrm.domain.utils.getBitmapFromUri
 import com.example.atosrm.presentation.fr.show_full_info_person.ShowPersonInfoViewModel
 import com.example.atosrm.presentation.ui.elements.AppButton
 import com.example.atosrm.presentation.ui.elements.text.LargeText
@@ -24,6 +27,14 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
 @Composable fun LoadedContent(
     viewModel: ShowPersonInfoViewModel
 ){
+    val context = LocalContext.current
+    val galleryLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent(),
+        onResult = { uri ->
+            viewModel.personAvatarUri = uri
+            viewModel.personAvatarBitmap = getBitmapFromUri(context = context, uri = uri!!)
+        }
+    )
 
     ConstraintLayout(
         modifier = Modifier
@@ -65,17 +76,34 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
                     top.linkTo(header.bottom, margin = (-75).dp)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                },
+                }
+                .clickable { galleryLauncher.launch("image/*") },
             contentAlignment = Alignment.Center,
         ) {
 
-            Image(
-                bitmap = viewModel.personAvatar!!.decodeBitmap().asImageBitmap(),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
+            if (viewModel.personAvatarUri == null){
+                Image(
+                    bitmap = viewModel.personAvatar!!.decodeBitmap().asImageBitmap(),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
+            } else {
+                Image(
+                    painter = rememberAsyncImagePainter(
+                        model = ImageRequest
+                            .Builder(context)
+                            .data(
+                                data = viewModel.personAvatarUri
+                            )
+                            .build()
+                    ),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
+            }
         }
 
         Column(
@@ -99,7 +127,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
             )
             EditableElement(
                 value = viewModel.personFullInfo!!,
-                onChangeValue = { viewModel.personFullInfo },
+                onChangeValue = { viewModel.personFullInfo = it },
                 icon = R.drawable.info_ic
             )
 

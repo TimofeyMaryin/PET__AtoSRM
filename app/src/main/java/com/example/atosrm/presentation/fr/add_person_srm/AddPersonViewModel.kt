@@ -48,14 +48,7 @@ class AddPersonViewModel @Inject constructor(): ViewModel(){
 
 
 
-    @Throws(IOException::class)
-    fun getBitmapFromUri(context: Context, uri: Uri): Bitmap {
-        val contentResolver: ContentResolver = context.contentResolver
-        val inputStream = contentResolver.openInputStream(uri)
-        val bitmap = BitmapFactory.decodeStream(inputStream)
-        inputStream?.close()
-        return bitmap
-    }
+
 
     fun cleanTextField(){
         personName = ""

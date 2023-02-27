@@ -1,6 +1,8 @@
 package com.example.atosrm.presentation.fr.show_full_info_person
 
 import android.app.Person
+import android.graphics.Bitmap
+import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -8,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.atosrm.data.person_srm.PersonSRM
 import com.example.atosrm.domain.utils.decodeBitmap
+import com.example.atosrm.domain.utils.saveImage
 import com.example.atosrm.presentation.MainActivityViewModel
 import com.example.atosrm.presentation.navigation.EDIT_PERSON_INFO
 import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
@@ -18,6 +21,8 @@ class ShowPersonInfoViewModel(
 ): ViewModel() {
 
 
+    var personAvatarUri by mutableStateOf<Uri?>(null)
+    var personAvatarBitmap by mutableStateOf<Bitmap?>(null)
 
     var personName by mutableStateOf(mainViewModel.personToShow?.fullInfo)
     var personSkills by mutableStateOf(mainViewModel.personToShow?.skills)
@@ -39,7 +44,7 @@ class ShowPersonInfoViewModel(
                 fullName = personName!!,
                 skills = personSkills!!,
                 fullInfo = personFullInfo!!,
-                avatar = personAvatar!!,
+                avatar = saveImage(personAvatarBitmap!!),
                 shortInfo = mainViewModel.personToShow!!.shortInfo
             )
         )

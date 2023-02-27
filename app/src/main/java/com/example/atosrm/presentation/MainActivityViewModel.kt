@@ -16,6 +16,7 @@ import com.example.atosrm.data.person_srm.PersonSRMDao
 import com.example.atosrm.data.person_srm.PersonSRMImpl
 import com.example.atosrm.data.person_srm.PersonSRMRepo
 import com.example.atosrm.domain.use_cases.person_srm.AddPersonUseCase
+import com.example.atosrm.domain.utils.saveImage
 import com.example.atosrm.presentation.fr.add_person_srm.AddPersonViewModel
 import com.example.atosrm.presentation.navigation.ADD_PERSON_FRAGMENT
 import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
@@ -87,12 +88,7 @@ class MainActivityViewModel (
                 addPersonViewModel.shortInfoMutableList.size != 0
     }
 
-    private fun saveImage(bitmap: Bitmap): ByteArray {
-        val data = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, data)
 
-        return data.toByteArray()
-    }
 
     suspend fun getAllUser(): MutableList<PersonSRM> = dao.getAllUser()
 

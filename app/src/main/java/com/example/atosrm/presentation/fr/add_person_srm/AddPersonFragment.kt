@@ -33,6 +33,7 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.atosrm.data.state.PositionIconHeader
+import com.example.atosrm.domain.utils.getBitmapFromUri
 import com.example.atosrm.presentation.MainActivityViewModel
 import com.example.atosrm.presentation.fr.add_person_srm.module.AddPersonShortInfoContainer
 import com.example.atosrm.presentation.fr.add_person_srm.module._Add_Person_Container
@@ -57,7 +58,7 @@ import com.example.atosrm.presentation.ui.elements.text.LargeText
         contract = ActivityResultContracts.GetContent(),
         onResult = { uri ->
             selectImage = uri
-            viewModel.personAvatar = viewModel.getBitmapFromUri(context = context, uri = uri!!)
+            viewModel.personAvatar = getBitmapFromUri(context = context, uri = uri!!)
 
         }
     )
