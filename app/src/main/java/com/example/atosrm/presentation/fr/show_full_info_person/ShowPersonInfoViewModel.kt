@@ -54,5 +54,6 @@ class ShowPersonInfoViewModel(
                 inclusive = true
             }
         }
+        mainViewModel.usersList = mainViewModel.getAllUser()
     }
 }

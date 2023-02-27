@@ -103,6 +103,7 @@ class MainActivityViewModel (
     suspend fun deletePerson(personSRM: PersonSRM){
         dao.deletePerson(personSRM)
         navController.popBackStack()
+        usersList = getAllUser()
         currentNavBackState = LIST_FRAGMENT
     }
 
