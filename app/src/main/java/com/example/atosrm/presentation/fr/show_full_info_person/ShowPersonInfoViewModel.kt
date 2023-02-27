@@ -9,6 +9,8 @@ import androidx.navigation.NavController
 import com.example.atosrm.data.person_srm.PersonSRM
 import com.example.atosrm.domain.utils.decodeBitmap
 import com.example.atosrm.presentation.MainActivityViewModel
+import com.example.atosrm.presentation.navigation.EDIT_PERSON_INFO
+import com.example.atosrm.presentation.navigation.LIST_FRAGMENT
 
 class ShowPersonInfoViewModel(
     val mainViewModel: MainActivityViewModel,
@@ -42,6 +44,10 @@ class ShowPersonInfoViewModel(
             )
         )
 
-        mainViewModel.navController.popBackStack()
+        mainViewModel.navController.navigate(LIST_FRAGMENT) {
+            popUpTo(EDIT_PERSON_INFO) {
+                inclusive = true
+            }
+        }
     }
 }

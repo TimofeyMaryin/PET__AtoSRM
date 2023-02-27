@@ -38,6 +38,7 @@ import com.example.atosrm.presentation.ui.elements.AppButton
         block = {
             if (editPerson > 0) {
                 viewModel.editPerson()
+                viewModel.mainViewModel.usersList = viewModel.mainViewModel.getAllUser()
             }
         }
     )
