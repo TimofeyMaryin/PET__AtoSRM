@@ -60,7 +60,7 @@ import com.example.atosrm.presentation.ui.dimenston.localSpacing
                 navController.navigate(SEARCH_FRAGMENT)
             }
         }
-        
+
     }
 
 }

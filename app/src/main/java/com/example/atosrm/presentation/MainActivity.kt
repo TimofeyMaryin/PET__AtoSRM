@@ -27,6 +27,7 @@ import com.example.atosrm.presentation.navigation.AppNavHost
 import com.example.atosrm.presentation.ui.elements.bottom_bar.BottomBar
 import com.example.atosrm.presentation.ui.elements.fab.FAB
 import com.example.atosrm.presentation.ui.theme.AtoSRMTheme
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -74,6 +75,20 @@ class MainActivity : ComponentActivity() {
     }
 
     AtoSRMTheme {
+        val systemUiController = rememberSystemUiController()
+        val backgroundColor = MaterialTheme.colorScheme.background
+
+        SideEffect {
+            systemUiController.setStatusBarColor(
+                color = backgroundColor,
+                darkIcons = false
+            )
+            systemUiController.apply {
+                isStatusBarVisible = false
+                isNavigationBarVisible = false
+                isSystemBarsVisible = false
+            }
+        }
 
         Scaffold(
             modifier = Modifier.fillMaxSize(),
